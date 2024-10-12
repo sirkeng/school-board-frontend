@@ -4,13 +4,12 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.js";
-import withAuth from "../../components/withAuth";
 
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main.css";
 import "../../css/main-back-office.css";
 
-function SportsPage() {
+export function SportsPage() {
   const [banner, setBanner] = useState({
     title: "",
     video: "",
@@ -964,5 +963,3 @@ function SportsPage() {
     </div>
   );
 }
-
-export default withAuth(SportsPage);
