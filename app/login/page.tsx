@@ -51,8 +51,12 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (data.message === "Login successful.") {
-        // Redirect to dashboard
-        router.push("/back-office/dashboard");
+        // Store the access token and refresh token in local storage
+        localStorage.setItem("accessToken", data?.accessToken);
+        localStorage.setItem("refreshToken", data?.refreshToken);
+
+        // Redirect to back-office
+        router.push("/back-office/sports-page");
       } else {
         alert("Incorrect Username or Password");
       }
