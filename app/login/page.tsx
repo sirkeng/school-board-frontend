@@ -30,7 +30,7 @@ export default function LoginPage() {
     });
 
     try {
-      const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/login`;
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`;
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -40,11 +40,17 @@ export default function LoginPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const errorData = await response.json();
+        console.log("login:errorData", errorData);
+        if (response.status === 400 && errorData.message) {
+          alert(errorData.message);
+        } else {
+          throw new Error("Network response was not ok");
+        }
+        return;
       }
 
       const data = await response.json();
-      console.log(data);
 
       if (data.success) {
         router.push("/back-office/dashboard");
