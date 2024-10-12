@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import withAuth from "../../components/withAuth";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.js";
@@ -9,7 +10,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main-back-office.css";
 import "../../css/main.css";
 
-export default function SportsPage() {
+function SportsPage() {
   const [banner, setBanner] = useState({
     title: "",
     video: "",
@@ -963,3 +964,5 @@ export default function SportsPage() {
     </div>
   );
 }
+
+export default withAuth(SportsPage);
