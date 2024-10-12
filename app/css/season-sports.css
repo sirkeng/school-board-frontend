@@ -1,0 +1,12 @@
+.background-picture-ss{
+    background-image: url('/images/Vollcover.webp');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    background-color: #00000040;
+    background-blend-mode: overlay;
+}
+
+body{
+    background-color: #f4f4f4;
+}

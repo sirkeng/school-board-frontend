@@ -1,0 +1,12 @@
+body {
+    color: #3f3f3f;
+}
+.table-backoffice {
+    table-layout: fixed;
+}
+.table-backoffice th, .table-backoffice td {
+    color: #3f3f3f;
+}
+.text-grey{
+    color: #3f3f3f;
+}
