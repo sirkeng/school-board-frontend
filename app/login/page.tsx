@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import "../css/login.css";
 import "next/image";
@@ -8,41 +9,53 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
 
-  async function login() {
-    if (username.length == 0) {
-      alert("Please Enter your username");
-    } else if (password.length == 0) {
-      alert("Please Enter your password");
-    } else {
-      // Enter both input
-      // CALL API
-      const json_body = JSON.stringify({
-        email: "yujuns27@rism.ac.th",
-        password: "test123",
+  const login = async () => {
+    if (!username) {
+      alert("Please enter your username");
+      return;
+    }
+
+    if (!password) {
+      alert("Please enter your password");
+      return;
+    }
+
+    const requestBody = JSON.stringify({
+      email: username,
+      password: password,
+    });
+
+    try {
+      const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/login`;
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: requestBody,
       });
-      try {
-        const apiUrl = `${process.env.REACT_APP_API_BASE_URL}/auth/login`;
-        const resp = await fetch(apiUrl, {
-          method: "POST",
-          body: json_body,
-        });
-        const json = await resp.json();
-        console.log(json);
-      } catch (err) {
-        console.log(err);
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
 
-      if (username == "me@gmail.com" && password == "helloworld") {
+      const data = await response.json();
+      console.log(data);
+
+      if (data.success) {
         router.push("/back-office/dashboard");
       } else {
         alert("Incorrect Username or Password");
       }
+    } catch (error) {
+      console.error("There was a problem with the login request:", error);
+      alert("An error occurred. Please try again later.");
     }
-  }
+  };
 
   return (
     <main>
