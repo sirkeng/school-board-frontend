@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import "../css/login.css";
-import "next/image";
-import "../css/main.css";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+
+import "../css/main.css";
+import "../css/login.css";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,7 +40,6 @@ export default function LoginPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log("login:errorData", errorData);
         if (response.status === 400 && errorData.message) {
           alert(errorData.message);
         } else {
@@ -52,7 +50,8 @@ export default function LoginPage() {
 
       const data = await response.json();
 
-      if (data.success) {
+      if (data.message === "Login successful.") {
+        // Redirect to dashboard
         router.push("/back-office/dashboard");
       } else {
         alert("Incorrect Username or Password");
