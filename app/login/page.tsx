@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import "../css/main.css";
 import "../css/login.css";
+import "../css/main.css";
 
 export default function LoginPage() {
   const router = useRouter();
