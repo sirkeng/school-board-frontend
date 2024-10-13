@@ -6,31 +6,36 @@ import { useAuth } from "../context/AuthContext";
 
 const withAuth = (WrappedComponent: React.ComponentType) => {
   const AuthComponent = (props: any) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(
+      null
+    );
     const router = useRouter();
-    const { user, login } = useAuth();
+    const { login } = useAuth();
 
     useEffect(() => {
-      // Check if the accessToken exists in localStorage
       const accessToken = localStorage.getItem("accessToken");
 
       if (accessToken) {
+        login(accessToken);
         setIsAuthenticated(true);
-        login(accessToken); // Optionally update the AuthContext with the token
       } else {
-        // If no token, redirect to login page
         router.push("/login");
+        setIsAuthenticated(false);
       }
-    }, [router, user, login]);
+    }, []);
+
+    // Handle loading state while checking authentication
+    if (isAuthenticated === null) {
+      return <div>Loading...</div>;
+    }
 
     if (!isAuthenticated) {
-      return null; // Show nothing while checking authentication
+      return null;
     }
 
     return <WrappedComponent {...props} />;
   };
 
-  // Set a display name for the HOC for debugging and development tools
   AuthComponent.displayName = `withAuth(${
     WrappedComponent.displayName || WrappedComponent.name || "Component"
   })`;
