@@ -16,13 +16,6 @@ function SportsPage() {
     video: "",
   });
 
-  const [news, setNews] = useState({
-    title: "",
-    content: "",
-    location: "",
-    timestamp: "",
-  });
-
   const [scoreboard, setScoreboard] = useState({
     sportname: "",
     firstteam: "",
@@ -31,30 +24,6 @@ function SportsPage() {
     secondscore: "",
     livelink: "",
   });
-
-  const [news_list, set_news_list] = useState([
-    {
-      id: 1,
-      title: "New1",
-      content: "Content 1",
-      location: "Main hall",
-      timestamp: "07/07/2024",
-    },
-    {
-      id: 2,
-      title: "New2",
-      content: "Content 2",
-      location: "Main hall",
-      timestamp: "07/14/2024",
-    },
-    {
-      id: 3,
-      title: "New3",
-      content: "Content 3",
-      location: "Main hall",
-      timestamp: "07/20/2024",
-    },
-  ]);
 
   function saveall_banner() {
     if (banner.title.length == 0) {
@@ -66,42 +35,11 @@ function SportsPage() {
     }
   }
 
-  function saveall_news() {
-    if (news_list.length == 0) {
-      alert("Please provide a news");
-    } else {
-      // CALL API
-    }
-  }
-
   function saveall_scoreboard() {
     if (scoreboard_list.length == 0) {
       alert("Please provide a Scorebaord");
     } else {
       // CALL API
-    }
-  }
-
-  function add_news() {
-    if (news.title.length == 0) {
-      alert("Please provide a title");
-    } else if (news.content.length == 0) {
-      alert("Please provide a content");
-    } else {
-      const temp = { ...news, id: news_list.length + 1 };
-      const temp_list = [...news_list];
-
-      temp_list.push(temp);
-      set_news_list(temp_list);
-      const modalNews = document.getElementById("newsadd");
-      Modal.getInstance(modalNews).hide();
-
-      setNews({
-        title: "",
-        content: "",
-        location: "",
-        timestamp: "",
-      });
     }
   }
 
@@ -233,26 +171,11 @@ function SportsPage() {
     setScoreboard(sctemp);
   }
 
-  function update_news(event, key) {
-    // key = title
-    const temp = { ...news };
-    temp[key] = event.target.value;
-    setNews(temp);
-  }
-
   function update_banner(event, key) {
     // key = title
     const temp = { ...banner };
     temp[key] = event.target.value;
     setBanner(temp);
-  }
-
-  function delete_news(index) {
-    const temp = news_list.filter(function (data, i) {
-      return i != index;
-    });
-    set_news_list(temp);
-    //TODO remove news api
   }
 
   function delete_scoreboard(index) {
@@ -338,7 +261,7 @@ function SportsPage() {
                               <th>Second Team</th>
                               <th>First Team Score</th>
                               <th>Second Team Score</th>
-                              <th style={{ width: "300px" }}>live link</th>
+                              <th>live link</th>
                             </tr>
                           </thead>
                           <tbody>
