@@ -24,10 +24,16 @@ export default function NewsTable() {
     timestamp: "",
   });
 
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showModal, setShowModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState<number | null>(null);
 
   const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setIsEditing(false);
+    setNews({ title: "", content: "", location: "", timestamp: "" });
+  };
 
   useEffect(() => {
     fetchNews();
@@ -70,62 +76,65 @@ export default function NewsTable() {
     }
   };
 
-  const addNews = async () => {
-    if (!news.title) {
-      alert("Please enter a title");
-      return;
-    }
-
-    if (!news.content) {
-      alert("Please enter content");
+  const saveNews = async () => {
+    if (!news.title || !news.content) {
+      alert("Please fill out all required fields.");
       return;
     }
 
     try {
-      const accessToken = getAccessToken(); // Retrieve token for authorization
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/news`,
-        {
+      const accessToken = getAccessToken();
+      let response;
+
+      if (isEditing && editId) {
+        // Edit existing news
+        response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/${editId}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(news),
+          }
+        );
+      } else {
+        // Add new news
+        response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/news`, {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${accessToken}`, // Attach token to Authorization header
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(news),
-        }
-      );
-      if (response.status === 201) {
-        fetchNews(); // Refresh the news list
-
-        handleCloseModal(); // Close modal after successful submission
-
-        // Clear input fields after success
-        setNews({
-          title: "",
-          content: "",
-          location: "",
-          timestamp: "",
         });
+      }
 
-        alert("News added successfully!");
+      if (response.ok) {
+        fetchNews();
+        handleCloseModal();
+        alert(
+          isEditing ? "News updated successfully!" : "News added successfully!"
+        );
       } else {
         await handleAuthError(response);
       }
     } catch (error) {
-      console.error("Error adding news:", error);
+      console.error("Error saving news:", error);
       alert(`An error occurred: ${error.message || "Something went wrong."}`);
     }
   };
 
   const deleteNews = async (id: number) => {
     try {
-      const accessToken = getAccessToken(); // Retrieve token for authorization
+      const accessToken = getAccessToken();
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/news/${id}`,
         {
           method: "DELETE",
           headers: {
-            Authorization: `Bearer ${accessToken}`, // Attach token to Authorization header
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -139,6 +148,18 @@ export default function NewsTable() {
       console.error("Error deleting news:", error);
       alert("An error occurred while deleting news.");
     }
+  };
+
+  const handleEdit = (newsItem: NewsItem) => {
+    setIsEditing(true);
+    setEditId(newsItem.id);
+    setNews({
+      title: newsItem.title,
+      content: newsItem.content,
+      location: newsItem.location,
+      timestamp: newsItem.timestamp,
+    });
+    handleShowModal();
   };
 
   return (
@@ -166,6 +187,7 @@ export default function NewsTable() {
                           <i
                             className="bi bi-pencil text-success me-2 cursor-pointer"
                             title="Edit"
+                            onClick={() => handleEdit(data)}
                           ></i>
                           <i
                             onClick={() => {
@@ -193,7 +215,7 @@ export default function NewsTable() {
               </div>
             </div>
 
-            {/* Add News Modal */}
+            {/* Add/Edit News Modal */}
             <div className="row mb-2">
               <div className="col-6 text-start">
                 <Button className="btn btn-success" onClick={handleShowModal}>
@@ -201,17 +223,14 @@ export default function NewsTable() {
                   Add News
                 </Button>
               </div>
-              {/* <div className="col-6 text-end">
-                <Button className="btn btn-blue" onClick={() => saveAllNews()}>
-                  SAVE
-                </Button>
-              </div> */}
             </div>
 
             {/* React Bootstrap Modal */}
             <Modal show={showModal} onHide={handleCloseModal} centered>
               <Modal.Header closeButton>
-                <Modal.Title>Add News</Modal.Title>
+                <Modal.Title>
+                  {isEditing ? "Edit News" : "Add News"}
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <div className="row">
@@ -263,7 +282,7 @@ export default function NewsTable() {
                 <Button variant="secondary" onClick={handleCloseModal}>
                   Close
                 </Button>
-                <Button variant="blue" onClick={addNews}>
+                <Button variant="blue" onClick={saveNews}>
                   Save changes
                 </Button>
               </Modal.Footer>
