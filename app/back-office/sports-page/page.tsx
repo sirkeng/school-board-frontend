@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import withAuth from "../../components/withAuth";
 import Link from "next/link";
+import Head from "next/head";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.js";
 import NewsTable from "./NewsTable";
+import { Metadata } from "next";
 
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main-back-office.css";
@@ -194,325 +196,333 @@ function SportsPage() {
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="offset-2 col-8">
-          <h2 className="my-4">Edit Sports Page</h2>
-          {/* Banner Card */}
-          <div className="row mb-4">
-            <div className="col-12">
-              <div className="card">
-                <h4 className="card-header bg-blue text-white">Banner</h4>
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-12 mb-3">
-                      <label htmlFor="" className="form-label">
-                        Banner Title:{" "}
-                      </label>
-                      <input
-                        value={banner.title}
-                        onChange={(event) => update_banner(event, "title")}
-                        type="text"
-                        className="form-control"
-                      />
+    <>
+      <Head>
+        <title>Edit Sports Page</title>
+      </Head>
+
+      <div className="container">
+        <div className="row">
+          <div className="offset-2 col-8">
+            <h2 className="my-4">Edit Sports Page</h2>
+            {/* Banner Card */}
+            <div className="row mb-4">
+              <div className="col-12">
+                <div className="card">
+                  <h4 className="card-header bg-blue text-white">Banner</h4>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-12 mb-3">
+                        <label htmlFor="" className="form-label">
+                          Banner Title:{" "}
+                        </label>
+                        <input
+                          value={banner.title}
+                          onChange={(event) => update_banner(event, "title")}
+                          type="text"
+                          className="form-control"
+                        />
+                      </div>
+                      <div className="col-12 mb-4">
+                        <label htmlFor="" className="form-label">
+                          Banner Video:{" "}
+                        </label>
+                        <input
+                          value={banner.video}
+                          onChange={(event) => update_banner(event, "video")}
+                          type="file"
+                          className="form-control"
+                        />
+                      </div>
                     </div>
-                    <div className="col-12 mb-4">
-                      <label htmlFor="" className="form-label">
-                        Banner Video:{" "}
-                      </label>
-                      <input
-                        value={banner.video}
-                        onChange={(event) => update_banner(event, "video")}
-                        type="file"
-                        className="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div className="row mb-2">
-                    <div className="col-12 text-end">
-                      <button className="btn btn-blue" onClick={saveall_banner}>
-                        SAVE
-                      </button>
+                    <div className="row mb-2">
+                      <div className="col-12 text-end">
+                        <button
+                          className="btn btn-blue"
+                          onClick={saveall_banner}
+                        >
+                          SAVE
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* News Card */}
-          <NewsTable />
+            {/* News Card */}
+            <NewsTable />
 
-          {/* Scoresboard */}
-          <div className="row mb-4">
-            <div className="col-12">
-              <div className="card">
-                <h4 className="card-header bg-blue text-white">Scoreboard</h4>
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="table-responsive">
-                        <table className="table table-striped table-hover table-backoffice">
-                          <thead>
-                            <tr>
-                              <th style={{ width: "100px" }}>Action</th>
-                              <th>Sport Name</th>
-                              <th>First Team</th>
-                              <th>Second Team</th>
-                              <th>First Team Score</th>
-                              <th>Second Team Score</th>
-                              <th>live link</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {scoreboard_list.map((data, index) => {
-                              return (
-                                <tr key={data.id}>
-                                  <td>
-                                    <i className="bi bi-pencil text-success me-2"></i>
-                                    <i
-                                      onClick={() => delete_scoreboard(index)}
-                                      className="bi bi-trash3 text-danger"
-                                    ></i>
-                                  </td>
-                                  <td>{data.sportname}</td>
-                                  <td>{data.firstteam}</td>
-                                  <td>{data.secondteam}</td>
-                                  <td>{data.firstscore}</td>
-                                  <td>{data.secondscore}</td>
-                                  <td>
-                                    <Link
-                                      href={data.livelink}
-                                      className="text-grey"
-                                      target="_blank"
-                                    >
-                                      <u>Link to Live</u>
-                                      <i className="bi bi-box-arrow-up-right text-grey ms-1"></i>
-                                    </Link>
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mb-2">
-                    <div className="col-6 text-start">
-                      <button
-                        type="button"
-                        className="btn btn-success"
-                        data-bs-toggle="modal"
-                        data-bs-target="#scoreboardadd"
-                      >
-                        <i className="bi bi-plus-lg me-1 cvvv"></i>
-                        Add scoreboard
-                      </button>
-                    </div>
-                    <div
-                      className="modal fade"
-                      id="scoreboardadd"
-                      tabIndex={-1}
-                      aria-labelledby="exampleModalLabel"
-                      aria-hidden="true"
-                    >
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h1
-                              className="modal-title fs-5"
-                              id="exampleModalLabel"
-                            >
-                              Add Scoreboard
-                            </h1>
-                            <button
-                              type="button"
-                              className="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            />
-                          </div>
-                          <div className="modal-body">
-                            <div className="row">
-                              <div className="col-12 mb-3">
-                                <label htmlFor="">
-                                  Sport Name{" "}
-                                  <span className="text-danger">*</span>
-                                </label>
-                                <input
-                                  value={scoreboard.sportname}
-                                  onChange={(event) =>
-                                    update_scoreboard(event, "sportname")
-                                  }
-                                  className="form-control text-black text-roboto"
-                                  type="text"
-                                />
-                              </div>
-                              <div className="col-12 mb-3">
-                                <label htmlFor="">
-                                  First team{" "}
-                                  <span className="text-danger">*</span>
-                                </label>
-                                <input
-                                  value={scoreboard.firstteam}
-                                  onChange={(event) =>
-                                    update_scoreboard(event, "firstteam")
-                                  }
-                                  className="form-control  text-black text-roboto"
-                                  type=""
-                                />
-                              </div>
-                              <div className="col-12 mb-3">
-                                <label htmlFor="">
-                                  Second team{" "}
-                                  <span className="text-danger">*</span>
-                                </label>
-                                <input
-                                  value={scoreboard.secondteam}
-                                  onChange={(event) =>
-                                    update_scoreboard(event, "secondteam")
-                                  }
-                                  className="form-control text-black text-roboto"
-                                  type="text"
-                                />
-                              </div>
-                              <div className="col-12 mb-3">
-                                <label htmlFor="">
-                                  First Team Score{" "}
-                                  <span className="text-danger">*</span>
-                                </label>
-                                <input
-                                  value={scoreboard.firstscore}
-                                  onChange={(event) =>
-                                    update_scoreboard(event, "firstscore")
-                                  }
-                                  className="form-control text-black text-roboto"
-                                  type="number"
-                                />
-                              </div>
-                              <div className="col-12 mb-3">
-                                <label htmlFor="">
-                                  Second Team Score{" "}
-                                  <span className="text-danger">*</span>
-                                </label>
-                                <input
-                                  value={scoreboard.secondscore}
-                                  onChange={(event) =>
-                                    update_scoreboard(event, "secondscore")
-                                  }
-                                  className="form-control text-black text-roboto"
-                                  type="number"
-                                />
-                              </div>
-                              <div className="col-12 mb-3">
-                                <label htmlFor="">Paste Link to Live</label>
-                                <input
-                                  value={scoreboard.livelink}
-                                  onChange={(event) =>
-                                    update_scoreboard(event, "livelink")
-                                  }
-                                  className="form-control text-black text-roboto"
-                                  type="text"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="modal-footer">
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Close
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-blue"
-                              onClick={add_scoreboard}
-                            >
-                              Save changes
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-6 text-end">
-                      <button
-                        className="btn btn-blue"
-                        onClick={saveall_scoreboard}
-                      >
-                        SAVE
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Seasons */}
-          <div className="row mb-4">
-            <div className="col-12">
-              <div className="card">
-                <h4 className="card-header bg-blue text-white">Seasons</h4>
-                <div className="card-body">
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="table-responsive">
-                        <table className="table table-striped table-hover table-backoffice">
-                          <thead>
-                            <tr>
-                              <th style={{ width: "100px" }}>Action</th>
-                              <th>Expand</th>
-                              <th>Seasons</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {seasons_list.map((data, index) => {
-                              return (
-                                <>
+            {/* Scoresboard */}
+            <div className="row mb-4">
+              <div className="col-12">
+                <div className="card">
+                  <h4 className="card-header bg-blue text-white">Scoreboard</h4>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="table-responsive">
+                          <table className="table table-striped table-hover table-backoffice">
+                            <thead>
+                              <tr>
+                                <th style={{ width: "100px" }}>Action</th>
+                                <th>Sport Name</th>
+                                <th>First Team</th>
+                                <th>Second Team</th>
+                                <th>First Team Score</th>
+                                <th>Second Team Score</th>
+                                <th>live link</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {scoreboard_list.map((data, index) => {
+                                return (
                                   <tr key={data.id}>
                                     <td>
                                       <i className="bi bi-pencil text-success me-2"></i>
                                       <i
-                                        onClick={() => delete_season(index)}
+                                        onClick={() => delete_scoreboard(index)}
                                         className="bi bi-trash3 text-danger"
                                       ></i>
                                     </td>
+                                    <td>{data.sportname}</td>
+                                    <td>{data.firstteam}</td>
+                                    <td>{data.secondteam}</td>
+                                    <td>{data.firstscore}</td>
+                                    <td>{data.secondscore}</td>
                                     <td>
-                                      <button
-                                        className="btn btn-primary"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target={"#sport-" + data.id}
+                                      <Link
+                                        href={data.livelink}
+                                        className="text-grey"
+                                        target="_blank"
                                       >
-                                        expand
-                                      </button>
+                                        <u>Link to Live</u>
+                                        <i className="bi bi-box-arrow-up-right text-grey ms-1"></i>
+                                      </Link>
                                     </td>
-                                    <td>{data.seasons}</td>
                                   </tr>
-                                  <div
-                                    className="row collapse"
-                                    id={"sport-" + data.id}
-                                  >
-                                    {data.sports.map((sp, sp_index) => {
-                                      return (
-                                        <div className="col-12" key={sp.id}>
-                                          {sp.sport_title}
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
-                                </>
-                              );
-                            })}
-                          </tbody>
-                        </table>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row mb-2">
+                      <div className="col-6 text-start">
+                        <button
+                          type="button"
+                          className="btn btn-success"
+                          data-bs-toggle="modal"
+                          data-bs-target="#scoreboardadd"
+                        >
+                          <i className="bi bi-plus-lg me-1 cvvv"></i>
+                          Add scoreboard
+                        </button>
+                      </div>
+                      <div
+                        className="modal fade"
+                        id="scoreboardadd"
+                        tabIndex={-1}
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div className="modal-dialog">
+                          <div className="modal-content">
+                            <div className="modal-header">
+                              <h1
+                                className="modal-title fs-5"
+                                id="exampleModalLabel"
+                              >
+                                Add Scoreboard
+                              </h1>
+                              <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              />
+                            </div>
+                            <div className="modal-body">
+                              <div className="row">
+                                <div className="col-12 mb-3">
+                                  <label htmlFor="">
+                                    Sport Name{" "}
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <input
+                                    value={scoreboard.sportname}
+                                    onChange={(event) =>
+                                      update_scoreboard(event, "sportname")
+                                    }
+                                    className="form-control text-black text-roboto"
+                                    type="text"
+                                  />
+                                </div>
+                                <div className="col-12 mb-3">
+                                  <label htmlFor="">
+                                    First team{" "}
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <input
+                                    value={scoreboard.firstteam}
+                                    onChange={(event) =>
+                                      update_scoreboard(event, "firstteam")
+                                    }
+                                    className="form-control  text-black text-roboto"
+                                    type=""
+                                  />
+                                </div>
+                                <div className="col-12 mb-3">
+                                  <label htmlFor="">
+                                    Second team{" "}
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <input
+                                    value={scoreboard.secondteam}
+                                    onChange={(event) =>
+                                      update_scoreboard(event, "secondteam")
+                                    }
+                                    className="form-control text-black text-roboto"
+                                    type="text"
+                                  />
+                                </div>
+                                <div className="col-12 mb-3">
+                                  <label htmlFor="">
+                                    First Team Score{" "}
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <input
+                                    value={scoreboard.firstscore}
+                                    onChange={(event) =>
+                                      update_scoreboard(event, "firstscore")
+                                    }
+                                    className="form-control text-black text-roboto"
+                                    type="number"
+                                  />
+                                </div>
+                                <div className="col-12 mb-3">
+                                  <label htmlFor="">
+                                    Second Team Score{" "}
+                                    <span className="text-danger">*</span>
+                                  </label>
+                                  <input
+                                    value={scoreboard.secondscore}
+                                    onChange={(event) =>
+                                      update_scoreboard(event, "secondscore")
+                                    }
+                                    className="form-control text-black text-roboto"
+                                    type="number"
+                                  />
+                                </div>
+                                <div className="col-12 mb-3">
+                                  <label htmlFor="">Paste Link to Live</label>
+                                  <input
+                                    value={scoreboard.livelink}
+                                    onChange={(event) =>
+                                      update_scoreboard(event, "livelink")
+                                    }
+                                    className="form-control text-black text-roboto"
+                                    type="text"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="modal-footer">
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                              >
+                                Close
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-blue"
+                                onClick={add_scoreboard}
+                              >
+                                Save changes
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="col-6 text-end">
+                        <button
+                          className="btn btn-blue"
+                          onClick={saveall_scoreboard}
+                        >
+                          SAVE
+                        </button>
                       </div>
                     </div>
                   </div>
-                  {/*<div className="row mb-2">
+                </div>
+              </div>
+            </div>
+
+            {/* Seasons */}
+            <div className="row mb-4">
+              <div className="col-12">
+                <div className="card">
+                  <h4 className="card-header bg-blue text-white">Seasons</h4>
+                  <div className="card-body">
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="table-responsive">
+                          <table className="table table-striped table-hover table-backoffice">
+                            <thead>
+                              <tr>
+                                <th style={{ width: "100px" }}>Action</th>
+                                <th>Expand</th>
+                                <th>Seasons</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {seasons_list.map((data, index) => {
+                                return (
+                                  <>
+                                    <tr key={data.id}>
+                                      <td>
+                                        <i className="bi bi-pencil text-success me-2"></i>
+                                        <i
+                                          onClick={() => delete_season(index)}
+                                          className="bi bi-trash3 text-danger"
+                                        ></i>
+                                      </td>
+                                      <td>
+                                        <button
+                                          className="btn btn-primary"
+                                          data-bs-toggle="collapse"
+                                          data-bs-target={"#sport-" + data.id}
+                                        >
+                                          expand
+                                        </button>
+                                      </td>
+                                      <td>{data.seasons}</td>
+                                    </tr>
+                                    <div
+                                      className="row collapse"
+                                      id={"sport-" + data.id}
+                                    >
+                                      {data.sports.map((sp, sp_index) => {
+                                        return (
+                                          <div className="col-12" key={sp.id}>
+                                            {sp.sport_title}
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                  </>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    {/*<div className="row mb-2">
                                         <div className="col-6 text-start">
                                             <button
                                                 type="button"
@@ -720,13 +730,14 @@ function SportsPage() {
                                             </button>
                                         </div>
                                     </div>*/}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
