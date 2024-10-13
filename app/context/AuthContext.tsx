@@ -13,6 +13,7 @@ interface AuthContextType {
   user: any;
   login: (token: string) => void;
   logout: () => void;
+  handleAuthError: (response: Response) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -39,8 +40,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push("/login");
   };
 
+  const handleAuthError = async (response: Response) => {
+    if (response.status === 403) {
+      alert("Your session has expired. Please log in again.");
+      logout(); // Log out the user and redirect to the login page
+    } else if (!response.ok) {
+      const errorData = await response.json();
+      alert(`Error: ${errorData.message}`);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, handleAuthError }}>
       {children}
     </AuthContext.Provider>
   );
