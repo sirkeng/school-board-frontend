@@ -163,10 +163,21 @@ export default function NewsTable() {
                     {newsList.map((data) => (
                       <tr key={data.id}>
                         <td>
-                          <i className="bi bi-pencil text-success me-2"></i>
                           <i
-                            onClick={() => deleteNews(data.id)}
-                            className="bi bi-trash3 text-danger"
+                            className="bi bi-pencil text-success me-2 cursor-pointer"
+                            title="Edit"
+                          ></i>
+                          <i
+                            onClick={() => {
+                              const confirmDelete = window.confirm(
+                                `Are you sure you want to delete the news titled "${data.title}"?`
+                              );
+                              if (confirmDelete) {
+                                deleteNews(data.id);
+                              }
+                            }}
+                            className="bi bi-trash3 text-danger cursor-pointer"
+                            title="Delete"
                           ></i>
                         </td>
                         <td>{data.title}</td>

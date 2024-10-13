@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import withAuth from "../../components/withAuth";
 import Link from "next/link";
-import { format } from "date-fns";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.js";
 import NewsTable from "./NewsTable";
 
