@@ -5,6 +5,7 @@ import withAuth from "../../components/withAuth";
 import Head from "next/head";
 import NewsTable from "./NewsTable";
 import ScoreboardTable from "./ScoreboardTable";
+import SeasonTable from "./SeasonsTable";
 
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main-back-office.css";
@@ -169,69 +170,7 @@ function SportsPage() {
             <ScoreboardTable />
 
             {/* Seasons */}
-            <div className="row mb-4">
-              <div className="col-12">
-                <div className="card">
-                  <h4 className="card-header bg-blue text-white">Seasons</h4>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-12">
-                        <div className="table-responsive">
-                          <table className="table table-striped table-hover table-backoffice">
-                            <thead>
-                              <tr>
-                                <th style={{ width: "100px" }}>Action</th>
-                                <th>Expand</th>
-                                <th>Seasons</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {seasons_list.map((data, index) => {
-                                return (
-                                  <>
-                                    <tr key={data.id}>
-                                      <td>
-                                        <i className="bi bi-pencil text-success me-2"></i>
-                                        <i
-                                          onClick={() => delete_season(index)}
-                                          className="bi bi-trash3 text-danger"
-                                        ></i>
-                                      </td>
-                                      <td>
-                                        <button
-                                          className="btn btn-primary"
-                                          data-bs-toggle="collapse"
-                                          data-bs-target={"#sport-" + data.id}
-                                        >
-                                          expand
-                                        </button>
-                                      </td>
-                                      <td>{data.seasons}</td>
-                                    </tr>
-                                    <div
-                                      className="row collapse"
-                                      id={"sport-" + data.id}
-                                    >
-                                      {data.sports.map((sp, sp_index) => {
-                                        return (
-                                          <div className="col-12" key={sp.id}>
-                                            {sp.sport_title}
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  </>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SeasonTable />
           </div>
         </div>
       </div>
