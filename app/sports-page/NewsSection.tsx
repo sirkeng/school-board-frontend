@@ -1,30 +1,45 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Navigation } from "swiper/modules";
+import { format } from "date-fns";
+
+interface NewsItem {
+  id: number;
+  title: string;
+  content: string;
+  location: string;
+  timestamp: string;
+}
 
 export default function NewsSection() {
-  const news_title = [
-    {
-      id: 1,
-      title: "new1",
-      content:
-        "On July 7th, please report to Godbout hall to cheer for our U14 football team, who are goingagainst BPS!",
-    },
-    {
-      id: 2,
-      title: "new2",
-      content:
-        "On July 7th, please report to Godbout hall to cheer for our U14 football team, who are goingagainst BPS!",
-    },
-    {
-      id: 3,
-      title: "new3",
-      content:
-        "On July 7th, please report to Godbout hall to cheer for our U14 football team, who are goingagainst BPS!",
-    },
-  ];
+  const [newsList, setNewsList] = useState<NewsItem[]>([]);
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/news`,
+        {
+          method: "GET",
+        }
+      );
+      if (!response.ok) {
+        alert("Failed to fetch news");
+        return;
+      }
+      const data = await response.json();
+      setNewsList(data);
+    } catch (error) {
+      console.error("Error fetching news:", error);
+      alert("An error occurred while fetching news.");
+    }
+  };
 
   return (
     <section className="bg-dark-blue pb-5">
@@ -39,7 +54,7 @@ export default function NewsSection() {
               modules={[Pagination, Navigation]}
               className="mySwiper"
             >
-              {news_title.map((data) => {
+              {newsList.map((data: NewsItem) => {
                 return (
                   <SwiperSlide key={data.id}>
                     <div className="card p-2">
@@ -51,7 +66,8 @@ export default function NewsSection() {
                         </div>
                         <div className="row">
                           <div className="col-12 fs-6 yellow-text text-margin">
-                            JULY 7th, 2024 | GODBOUT HALL
+                            {format(new Date(data.timestamp), "MMMM do, yyyy")}{" "}
+                            | {data.location}
                           </div>
                         </div>
                         <div className="row">

@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { Button, Modal } from "react-bootstrap"; // Import React Bootstrap components
+import { Button, Modal } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 
-// Define the type for news items
 interface NewsItem {
   id: number;
   title: string;
@@ -64,8 +63,7 @@ export default function NewsTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       const data = await response.json();
@@ -139,8 +137,7 @@ export default function NewsTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       fetchNews();
