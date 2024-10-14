@@ -3,14 +3,15 @@
 import React from "react";
 import withAuth from "../../components/withAuth";
 import Head from "next/head";
-import NewsTable from "./NewsTable";
-import ScoreboardTable from "./ScoreboardTable";
-import SeasonTable from "./SeasonsTable";
-import BannerEdit from "./BannerEdit";
 
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main-back-office.css";
 import "../../css/main.css";
+
+import NewsTable from "./NewsTable";
+import ScoreboardTable from "./ScoreboardTable";
+import SeasonTable from "./SeasonsTable";
+import BannerEdit from "./BannerEdit";
 
 function SportsPage() {
   return (
