@@ -6,34 +6,13 @@ import Head from "next/head";
 import NewsTable from "./NewsTable";
 import ScoreboardTable from "./ScoreboardTable";
 import SeasonTable from "./SeasonsTable";
+import BannerEdit from "./BannerEdit";
 
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main-back-office.css";
 import "../../css/main.css";
 
 function SportsPage() {
-  const [banner, setBanner] = useState({
-    title: "",
-    video: "",
-  });
-
-  function saveall_banner() {
-    if (banner.title.length == 0) {
-      alert("Please provide a title");
-    } else if (banner.video.length == 0) {
-      alert("Please provide a background video");
-    } else {
-      // CALL API
-    }
-  }
-
-  function update_banner(event, key) {
-    // key = title
-    const temp = { ...banner };
-    temp[key] = event.target.value;
-    setBanner(temp);
-  }
-
   return (
     <>
       <Head>
@@ -45,49 +24,7 @@ function SportsPage() {
           <div className="offset-2 col-8">
             <h2 className="my-4">Edit Sports Page</h2>
             {/* Banner Card */}
-            <div className="row mb-4">
-              <div className="col-12">
-                <div className="card">
-                  <h4 className="card-header bg-blue text-white">Banner</h4>
-                  <div className="card-body">
-                    <div className="row">
-                      <div className="col-12 mb-3">
-                        <label htmlFor="" className="form-label">
-                          Banner Title:{" "}
-                        </label>
-                        <input
-                          value={banner.title}
-                          onChange={(event) => update_banner(event, "title")}
-                          type="text"
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="col-12 mb-4">
-                        <label htmlFor="" className="form-label">
-                          Banner Video:{" "}
-                        </label>
-                        <input
-                          value={banner.video}
-                          onChange={(event) => update_banner(event, "video")}
-                          type="file"
-                          className="form-control"
-                        />
-                      </div>
-                    </div>
-                    <div className="row mb-2">
-                      <div className="col-12 text-end">
-                        <button
-                          className="btn btn-blue"
-                          onClick={saveall_banner}
-                        >
-                          SAVE
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <BannerEdit />
 
             {/* News Card */}
             <NewsTable />
