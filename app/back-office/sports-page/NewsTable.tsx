@@ -4,14 +4,7 @@ import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Button, Modal } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  content: string;
-  location: string;
-  timestamp: string;
-}
+import { NewsItem } from "../../types";
 
 export default function NewsTable() {
   const { handleAuthError } = useAuth();

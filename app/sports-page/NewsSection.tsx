@@ -5,14 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Navigation } from "swiper/modules";
 import { format } from "date-fns";
-
-interface NewsItem {
-  id: number;
-  title: string;
-  content: string;
-  location: string;
-  timestamp: string;
-}
+import { NewsItem } from "../types";
 
 export default function NewsSection() {
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
