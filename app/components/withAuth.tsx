@@ -21,8 +21,10 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
 
         const hasRefreshed = sessionStorage.getItem("hasRefreshed");
         if (hasRefreshed === "false") {
-          sessionStorage.setItem("hasRefreshed", "true");
-          router.refresh();
+          setTimeout(() => {
+            sessionStorage.setItem("hasRefreshed", "true");
+            router.refresh();
+          }, 5000);
         }
       } else {
         router.push("/login");
