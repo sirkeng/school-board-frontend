@@ -18,7 +18,8 @@ export default function BannerSection() {
         }
       );
       if (!response.ok) {
-        alert("Failed to fetch banner");
+        const errorData = await response.json();
+        alert(errorData.message);
         return;
       }
       const data = await response.json();

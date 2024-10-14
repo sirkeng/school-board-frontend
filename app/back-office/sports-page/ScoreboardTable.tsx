@@ -4,17 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button, Modal } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
-
-// Define the type for scoreboard items
-interface ScoreboardItem {
-  id: number;
-  sportName: string;
-  firstTeam: string;
-  secondTeam: string;
-  firstTeamScore: number;
-  secondTeamScore: number;
-  liveLink: string;
-}
+import { ScoreboardItem } from "../../types";
 
 export default function ScoreboardTable() {
   const { handleAuthError } = useAuth();
