@@ -17,15 +17,6 @@ function SportsPage() {
     video: "",
   });
 
-  const [scoreboard, setScoreboard] = useState({
-    sportname: "",
-    firstteam: "",
-    secondteam: "",
-    firstscore: "",
-    secondscore: "",
-    livelink: "",
-  });
-
   function saveall_banner() {
     if (banner.title.length == 0) {
       alert("Please provide a title");
@@ -36,76 +27,11 @@ function SportsPage() {
     }
   }
 
-  const [seasons_list, set_seasons_list] = useState([
-    {
-      id: 1,
-      seasons: "Season 1",
-      sports: [
-        {
-          id: 1,
-          sport_title: "Sport1",
-        },
-        {
-          id: 2,
-          sport_title: "Sport2",
-        },
-        {
-          id: 3,
-          sport_title: "Sport3",
-        },
-      ],
-    },
-    {
-      id: 2,
-      seasons: "Season 2",
-      sports: [
-        {
-          id: 4,
-          sport_title: "Sport4",
-        },
-        {
-          id: 5,
-          sport_title: "Sport5",
-        },
-        {
-          id: 6,
-          sport_title: "Sport6",
-        },
-      ],
-    },
-    {
-      id: 3,
-      seasons: "Season 3",
-      sports: [
-        {
-          id: 7,
-          sport_title: "Sport7",
-        },
-        {
-          id: 8,
-          sport_title: "Sport8",
-        },
-        {
-          id: 9,
-          sport_title: "Sport9",
-        },
-      ],
-    },
-  ]);
-
   function update_banner(event, key) {
     // key = title
     const temp = { ...banner };
     temp[key] = event.target.value;
     setBanner(temp);
-  }
-
-  function delete_season(index) {
-    const temp = seasons_list.filter(function (data, i) {
-      return i != index;
-    });
-    set_seasons_list(temp);
-    //TODO remove news api
   }
 
   return (
