@@ -56,7 +56,7 @@ export default function LoginPage() {
         localStorage.setItem("refreshToken", data?.refreshToken);
 
         // Redirect to back-office
-        router.push("/back-office/sports-page");
+        router.push("/back-office/dashboard");
       } else {
         alert("Incorrect Username or Password");
       }

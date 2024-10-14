@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import withAuth from "../../components/withAuth";
 import Head from "next/head";
 import NewsTable from "./NewsTable";
