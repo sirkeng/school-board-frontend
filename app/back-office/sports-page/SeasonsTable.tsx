@@ -1,4 +1,3 @@
-// SeasonsTable.js
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -150,7 +149,7 @@ export default function SeasonsTable() {
   const handleCloseSportModal = () => {
     setShowSportModal(false);
     setIsEditingSport(false);
-    setSport({ sportName: "", imageUrl: "" });
+    setSport({ sportName: "", imageUrl: null });
   };
 
   const handleEditSport = (sportItem, seasonId) => {
@@ -158,7 +157,7 @@ export default function SeasonsTable() {
     setEditSportId(sportItem.id);
     setSport({
       sportName: sportItem.sportName,
-      imageUrl: sportItem.imageUrl || "",
+      imageUrl: sportItem.imageUrl || null,
     });
     setSelectedSeasonId(seasonId);
     setShowSportModal(true);
@@ -183,7 +182,7 @@ export default function SeasonsTable() {
       if (isEditingSport && editSportId) {
         // Edit existing sport
         response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/sport/${editSportId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/season/sport/${editSportId}`,
           {
             method: "PUT",
             headers: {
@@ -195,7 +194,7 @@ export default function SeasonsTable() {
       } else {
         // Add new sport
         response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/sport`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/season/sport`,
           {
             method: "POST",
             headers: {
@@ -219,6 +218,30 @@ export default function SeasonsTable() {
     } catch (error) {
       console.error("Error saving sport:", error);
       alert(`An error occurred: ${error.message || "Something went wrong."}`);
+    }
+  };
+
+  const deleteSport = async (id: number) => {
+    try {
+      const accessToken = getAccessToken();
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/season/sport/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(errorData.message);
+        return;
+      }
+      fetchSeasons();
+    } catch (error) {
+      console.error("Error deleting sport:", error);
+      alert("An error occurred while deleting sport.");
     }
   };
 
@@ -306,7 +329,7 @@ export default function SeasonsTable() {
                                       `Are you sure you want to delete the sport "${sp.sportName}"?`
                                     );
                                     if (confirmDelete) {
-                                      // Handle delete sport logic here
+                                      deleteSport(sp.id);
                                     }
                                   }}
                                   className="bi bi-trash3 text-danger ms-2 cursor-pointer"
