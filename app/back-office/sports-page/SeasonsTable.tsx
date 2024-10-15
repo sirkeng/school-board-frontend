@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 import { SeasonItem } from "../../types";
+import { useRouter } from "next/navigation";
 
 export default function SeasonsTable() {
   const { handleAuthError } = useAuth();
@@ -17,6 +18,7 @@ export default function SeasonsTable() {
   const [editSportId, setEditSportId] = useState(null);
   const [isEditingSport, setIsEditingSport] = useState(false);
   const [selectedSeasonId, setSelectedSeasonId] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     fetchSeasons();
@@ -248,6 +250,16 @@ export default function SeasonsTable() {
     }
   };
 
+  const handleNavigateToSeasonSport = (
+    seasonId: number,
+    seasonName: string,
+    sportId: number
+  ) => {
+    router.push(
+      `/back-office/season-sport?seasonId=${seasonId}&seasonName=${seasonName}&sportId=${sportId}`
+    );
+  };
+
   return (
     <div className="row mb-4">
       <div className="col-12">
@@ -321,6 +333,17 @@ export default function SeasonsTable() {
                                   }}
                                 />
                                 <span>{sp.sportName}</span>
+                                <i
+                                  className="bi bi-box-arrow-in-right text-warning ms-3 cursor-pointer"
+                                  title="Add or Update Sport Details"
+                                  onClick={() =>
+                                    handleNavigateToSeasonSport(
+                                      data.id,
+                                      data.seasonName,
+                                      sp.id
+                                    )
+                                  }
+                                ></i>
                                 <i
                                   className="bi bi-pencil text-success ms-3 cursor-pointer"
                                   title="Edit Sport"
