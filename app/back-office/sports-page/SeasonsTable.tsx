@@ -43,7 +43,10 @@ export default function SeasonsTable() {
         await handleAuthError(response);
         return;
       }
-      const data = await response.json();
+      const data: SeasonItem[] = await response.json();
+      data.sort((a, b) =>
+        a.seasonName.localeCompare(b.seasonName, undefined, { numeric: true })
+      );
       setSeasonsList(data);
     } catch (error) {
       console.error("Error fetching seasons:", error);
@@ -103,7 +106,7 @@ export default function SeasonsTable() {
     }
   };
 
-  const deleteSeason = async (id) => {
+  const deleteSeason = async (id: number) => {
     try {
       const accessToken = getAccessToken();
       const response = await fetch(
@@ -127,7 +130,7 @@ export default function SeasonsTable() {
     }
   };
 
-  const handleEditSeason = (seasonItem) => {
+  const handleEditSeason = (seasonItem: SeasonItem) => {
     setIsEditingSeason(true);
     setEditSeasonId(seasonItem.id);
     setSeason({ seasonName: seasonItem.seasonName });
