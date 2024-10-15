@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
+import { SeasonItem } from "../../types";
 
 export default function SeasonsTable() {
   const { handleAuthError } = useAuth();
-  const [seasonsList, setSeasonsList] = useState([]);
+  const [seasonsList, setSeasonsList] = useState<SeasonItem[]>([]);
   const [season, setSeason] = useState({ seasonName: "" });
   const [showSeasonModal, setShowSeasonModal] = useState(false);
   const [isEditingSeason, setIsEditingSeason] = useState(false);
@@ -39,8 +40,7 @@ export default function SeasonsTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       const data = await response.json();

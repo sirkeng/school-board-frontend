@@ -15,3 +15,15 @@ export interface ScoreboardItem {
   secondTeamScore: number;
   liveLink: string;
 }
+
+export interface SportItem {
+  id: number;
+  sportName: string;
+  imageUrl: string;
+}
+
+export interface SeasonItem {
+  id: number;
+  seasonName: string;
+  sports: SportItem[];
+}
