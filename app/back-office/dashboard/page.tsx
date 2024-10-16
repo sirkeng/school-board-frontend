@@ -28,16 +28,9 @@ function Dashboard() {
         </Col>
       </Row>
       <Row className="mt-4 text-center">
-        <Col xs={12} md={6} className="mb-3">
-          <Link href="/back-office/season-sport" passHref>
-            <Button variant="primary" className="w-100">
-              Go to Season Sports
-            </Button>
-          </Link>
-        </Col>
-        <Col xs={12} md={6} className="mb-3">
+        <Col xs={12} md={12} className="mb-3">
           <Link href="/back-office/sports-page" passHref>
-            <Button variant="secondary" className="w-100">
+            <Button variant="primary" className="w-100">
               Go to Sports Page
             </Button>
           </Link>

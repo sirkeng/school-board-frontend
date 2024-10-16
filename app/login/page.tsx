@@ -54,7 +54,8 @@ export default function LoginPage() {
         // Store the access token and refresh token in local storage
         localStorage.setItem("accessToken", data?.accessToken);
         localStorage.setItem("refreshToken", data?.refreshToken);
-
+        sessionStorage.removeItem("hasRefreshed");
+        
         // Redirect to back-office
         router.push("/back-office/dashboard");
       } else {
