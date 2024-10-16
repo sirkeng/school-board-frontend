@@ -41,3 +41,17 @@ export interface SeasonSportItem {
   seasonDetail: string;
   seasonImageUrl: File | string | null;
 }
+
+export interface SeasonSportItemForm {
+  id: number | null;
+  bannerTitle: string;
+  bannerImage: File | string | null;
+  coachName: string;
+  coachDescription: string;
+  coachProfileImage: File | string | null;
+  recentGameTitle: string;
+  recentGameDescription: string;
+  seasonNumber: string;
+  seasonDetail: string;
+  seasonImage: File | string | null;
+}

@@ -1,29 +1,54 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function BannerCard() {
-  const [banner, setBanner] = useState({
-    title: "",
-    image: "",
+interface BannerCardProps {
+  bannerTitle: string;
+  bannerImageUrl: File | string | null;
+  updateSeasonSport: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => void;
+  saveBannerCard: () => void;
+}
+
+export default function BannerCard({
+  bannerTitle,
+  bannerImageUrl,
+  updateSeasonSport,
+  saveBannerCard,
+}: BannerCardProps) {
+  const [bannerForm, setBannerForm] = useState({
+    bannerTitle: bannerTitle || "",
+    bannerImage: bannerImageUrl || "",
   });
 
-  function saveall_banner() {
-    if (banner.title.length == 0) {
+  useEffect(() => {
+    setBannerForm((prevBannerForm) => ({
+      ...prevBannerForm,
+      bannerTitle: bannerTitle || prevBannerForm.bannerTitle,
+      bannerImage: bannerImageUrl || prevBannerForm.bannerImage,
+    }));
+  }, [bannerTitle, bannerImageUrl]);
+
+  const handleSaveBanner = () => {
+    if (bannerForm.bannerTitle.length === 0) {
       alert("Please provide a title");
-    } else if (banner.image.length == 0) {
+    } else if (!bannerForm.bannerImage) {
       alert("Please provide a background picture");
     } else {
-      // CALL API
+      saveBannerCard();
     }
-  }
+  };
 
-  function update_banner(event, key) {
-    // key = title
-    const temp = { ...banner };
-    temp[key] = event.target.value;
-    setBanner(temp);
-  }
+  const handleUpdateBanner = (event, key) => {
+    const value =
+      key === "bannerImage" ? event.target.files[0] : event.target.value;
+    const updatedBanner = { ...bannerForm, [key]: value };
+    setBannerForm(updatedBanner);
+    updateSeasonSport(event, key);
+  };
+
   return (
     <div className="row mb-4">
       <div className="col-12">
@@ -32,31 +57,39 @@ export default function BannerCard() {
           <div className="card-body">
             <div className="row">
               <div className="col-12 mb-3">
-                <label htmlFor="" className="form-label">
-                  Banner Title:{" "}
+                <label htmlFor="bannerTitle" className="form-label">
+                  Banner Title:
                 </label>
                 <input
-                  value={banner.title}
-                  onChange={(event) => update_banner(event, "title")}
+                  id="bannerTitle"
+                  value={bannerForm.bannerTitle}
+                  onChange={(event) => handleUpdateBanner(event, "bannerTitle")}
                   type="text"
                   className="form-control"
                 />
               </div>
               <div className="col-12 mb-4">
-                <label htmlFor="" className="form-label">
-                  Banner picture:{" "}
+                <label htmlFor="bannerImage" className="form-label">
+                  Banner Picture:
                 </label>
                 <input
-                  value={banner.image}
-                  onChange={(event) => update_banner(event, "picture")}
+                  id="bannerImage"
+                  onChange={(event) => handleUpdateBanner(event, "bannerImage")}
                   type="file"
                   className="form-control"
                 />
+                {bannerForm.bannerImage &&
+                  typeof bannerForm.bannerImage === "string" && (
+                    <div className="mt-2">
+                      <strong>Current Image:</strong>{" "}
+                      {bannerForm.bannerImage.split("/").pop()}
+                    </div>
+                  )}
               </div>
             </div>
             <div className="row mb-2">
               <div className="col-12 text-end">
-                <button className="btn btn-blue" onClick={saveall_banner}>
+                <button className="btn btn-blue" onClick={handleSaveBanner}>
                   SAVE
                 </button>
               </div>
