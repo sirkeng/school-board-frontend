@@ -1,29 +1,56 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function RecentGame() {
-  const [recentgame, setRecentGame] = useState({
-    rgtitle: "",
-    rgdescription: "",
+interface RecentGameProps {
+  recentGameTitle: string;
+  recentGameDescription: string;
+  updateSeasonSport: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: string
+  ) => void;
+  saveRecentGameCard: () => void;
+}
+
+export default function RecentGame({
+  recentGameTitle,
+  recentGameDescription,
+  updateSeasonSport,
+  saveRecentGameCard,
+}: RecentGameProps) {
+  const [recentGameForm, setRecentGameForm] = useState({
+    recentGameTitle: recentGameTitle || "",
+    recentGameDescription: recentGameDescription || "",
   });
 
-  function saveall_recentgame() {
-    if (recentgame.rgtitle.length == 0) {
+  useEffect(() => {
+    setRecentGameForm((prevRecentGameForm) => ({
+      ...prevRecentGameForm,
+      recentGameTitle: recentGameTitle || prevRecentGameForm.recentGameTitle,
+      recentGameDescription:
+        recentGameDescription || prevRecentGameForm.recentGameDescription,
+    }));
+  }, [recentGameTitle, recentGameDescription]);
+
+  const handleSaveRecentGame = () => {
+    if (recentGameForm.recentGameTitle.length === 0) {
       alert("Please provide a title");
-    } else if (recentgame.rgdescription.length == 0) {
+    } else if (recentGameForm.recentGameDescription.length === 0) {
       alert("Please provide a description");
     } else {
-      // CALL API
+      saveRecentGameCard();
     }
-  }
+  };
 
-  function update_recentgame(event, key) {
-    // key = title
-    const temp = { ...recentgame };
-    temp[key] = event.target.value;
-    setRecentGame(temp);
-  }
+  const handleUpdateRecentGame = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    key: string
+  ) => {
+    const value = event.target.value;
+    const updatedRecentGame = { ...recentGameForm, [key]: value };
+    setRecentGameForm(updatedRecentGame);
+    updateSeasonSport(event, key);
+  };
 
   return (
     <div className="row mb-4">
@@ -33,24 +60,28 @@ export default function RecentGame() {
           <div className="card-body">
             <div className="row">
               <div className="col-12 mb-3">
-                <label htmlFor="" className="form-label">
-                  Recent Game Title:{" "}
+                <label htmlFor="recentGameTitle" className="form-label">
+                  Recent Game Title:
                 </label>
                 <input
-                  value={recentgame.rgtitle}
-                  onChange={(event) => update_recentgame(event, "rgtitle")}
+                  id="recentGameTitle"
+                  value={recentGameForm.recentGameTitle}
+                  onChange={(event) =>
+                    handleUpdateRecentGame(event, "recentGameTitle")
+                  }
                   type="text"
                   className="form-control"
                 />
               </div>
               <div className="col-12 mb-4">
-                <label htmlFor="" className="form-label">
-                  Recent Game Description:{" "}
+                <label htmlFor="recentGameDescription" className="form-label">
+                  Recent Game Description:
                 </label>
                 <textarea
-                  value={recentgame.rgdescription}
+                  id="recentGameDescription"
+                  value={recentGameForm.recentGameDescription}
                   onChange={(event) =>
-                    update_recentgame(event, "rgdescription")
+                    handleUpdateRecentGame(event, "recentGameDescription")
                   }
                   className="form-control"
                 />
@@ -58,7 +89,7 @@ export default function RecentGame() {
             </div>
             <div className="row mb-2">
               <div className="col-12 text-end">
-                <button className="btn btn-blue" onClick={saveall_recentgame}>
+                <button className="btn btn-blue" onClick={handleSaveRecentGame}>
                   SAVE
                 </button>
               </div>

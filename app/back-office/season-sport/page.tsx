@@ -221,7 +221,12 @@ export default function SeasonSport() {
           />
 
           {/* Recent Game */}
-          <RecentGame />
+          <RecentGame
+            recentGameTitle={seasonSport.recentGameTitle}
+            recentGameDescription={seasonSport.recentGameDescription}
+            updateSeasonSport={updateSeasonSport}
+            saveRecentGameCard={() => saveSeasonSport("recentGame")}
+          />
 
           {/* Season Card */}
           <SeasonCard />
