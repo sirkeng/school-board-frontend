@@ -66,7 +66,7 @@ export default function SeasonSport() {
   function saveall_banner() {
     if (banner.title.length == 0) {
       alert("Please provide a title");
-    } else if (banner.picture.length == 0) {
+    } else if (banner.image.length == 0) {
       alert("Please provide a background picture");
     } else {
       // CALL API
@@ -117,7 +117,7 @@ export default function SeasonSport() {
     } else if (award.adescription.length == 0) {
       alert("Please provide an award's description");
     } else {
-      const temp = { ...award };
+      const temp = { ...award, id: award_list.length + 1 };
       const temp_list = [...award_list];
 
       temp_list.push(temp);
@@ -143,7 +143,7 @@ export default function SeasonSport() {
     // key = title
     const temp = { ...recentgame };
     temp[key] = event.target.value;
-    setBanner(temp);
+    setRecentGame(temp);
   }
 
   function update_coach(event, key) {
@@ -204,7 +204,7 @@ export default function SeasonSport() {
                         Banner picture:{" "}
                       </label>
                       <input
-                        value={banner.picture}
+                        value={banner.image}
                         onChange={(event) => update_banner(event, "picture")}
                         type="file"
                         className="form-control"
@@ -300,11 +300,10 @@ export default function SeasonSport() {
                         Recent Game Description:{" "}
                       </label>
                       <textarea
-                        value={recentgame.description}
+                        value={recentgame.rgdescription}
                         onChange={(event) =>
                           update_recentgame(event, "rgdescription")
                         }
-                        type=""
                         className="form-control"
                       />
                     </div>
@@ -348,7 +347,6 @@ export default function SeasonSport() {
                       <textarea
                         value={season.detail}
                         onChange={(event) => update_season(event, "detail")}
-                        type=""
                         className="form-control"
                       />
                     </div>
@@ -473,7 +471,6 @@ export default function SeasonSport() {
                                     update_award(event, "adescription")
                                   }
                                   className="form-control  text-black text-roboto"
-                                  type=""
                                 />
                               </div>
                             </div>
