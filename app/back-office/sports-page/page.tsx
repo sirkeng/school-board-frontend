@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import withAuth from "../../components/withAuth";
-
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import "../../css/main-back-office.css";
 import "../../css/main.css";
 
+import React from "react";
+import withAuth from "../../components/withAuth";
 import NewsTable from "./NewsTable";
 import ScoreboardTable from "./ScoreboardTable";
 import SeasonTable from "./SeasonsTable";
