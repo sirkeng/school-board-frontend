@@ -189,10 +189,7 @@ export default function SeasonSport() {
         );
         fetchSeasonSport();
       } else {
-        // Log the response to understand the error
-        const errorText = await response.text();
-        console.error("Error response:", errorText);
-        alert(`An error occurred: ${errorText}`);
+        await handleAuthError(response);
       }
     } catch (error) {
       console.error("Error saving season sport:", error);
@@ -215,7 +212,13 @@ export default function SeasonSport() {
           />
 
           {/* Coach Card */}
-          <CoachCard />
+          <CoachCard
+            coachName={seasonSport.coachName}
+            coachDescription={seasonSport.coachDescription}
+            coachProfileImageUrl={seasonSport.coachProfileImageUrl}
+            updateSeasonSport={updateSeasonSport}
+            saveCoachCard={() => saveSeasonSport("coach")}
+          />
 
           {/* Recent Game */}
           <RecentGame />

@@ -1,30 +1,58 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function CoachCard() {
-  const [coach, setCoach] = useState({
-    name: "",
-    description: "",
-    profile: "",
+interface CoachCardProps {
+  coachName: string;
+  coachDescription: string;
+  coachProfileImageUrl: File | string | null;
+  updateSeasonSport: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) => void;
+  saveCoachCard: () => void;
+}
+
+export default function CoachCard({
+  coachName,
+  coachDescription,
+  coachProfileImageUrl,
+  updateSeasonSport,
+  saveCoachCard,
+}: CoachCardProps) {
+  const [coachForm, setCoachForm] = useState({
+    coachName: coachName || "",
+    coachDescription: coachDescription || "",
+    coachProfileImage: coachProfileImageUrl || "",
   });
 
-  function update_coach(event, key) {
-    // key = title
-    const temp = { ...coach };
-    temp[key] = event.target.value;
-    setCoach(temp);
-  }
+  useEffect(() => {
+    setCoachForm((prevCoachForm) => ({
+      ...prevCoachForm,
+      coachName: coachName || prevCoachForm.coachName,
+      coachDescription: coachDescription || prevCoachForm.coachDescription,
+      coachProfileImage:
+        coachProfileImageUrl || prevCoachForm.coachProfileImage,
+    }));
+  }, [coachName, coachDescription, coachProfileImageUrl]);
 
-  function saveall_coach() {
-    if (coach.name.length == 0) {
+  const handleSaveCoach = () => {
+    if (coachForm.coachName.length === 0) {
       alert("Please provide a name");
-    } else if (coach.profile.length == 0) {
+    } else if (!coachForm.coachProfileImage) {
       alert("Please provide a profile picture");
     } else {
-      // CALL API
+      saveCoachCard();
     }
-  }
+  };
+
+  const handleUpdateCoach = (event, key) => {
+    const value =
+      key === "coachProfileImage" ? event.target.files[0] : event.target.value;
+    const updatedCoach = { ...coachForm, [key]: value };
+    setCoachForm(updatedCoach);
+    updateSeasonSport(event, key);
+  };
 
   return (
     <div className="row mb-4">
@@ -34,43 +62,56 @@ export default function CoachCard() {
           <div className="card-body">
             <div className="row">
               <div className="col-12 mb-3">
-                <label htmlFor="" className="form-label">
-                  Coach Name:{" "}
+                <label htmlFor="coachName" className="form-label">
+                  Coach Name:
                 </label>
                 <input
-                  value={coach.name}
-                  onChange={(event) => update_coach(event, "name")}
+                  id="coachName"
+                  value={coachForm.coachName}
+                  onChange={(event) => handleUpdateCoach(event, "coachName")}
                   type="text"
                   className="form-control"
                 />
               </div>
               <div className="col-12 mb-3">
-                <label htmlFor="" className="form-label">
-                  Coach Description:{" "}
+                <label htmlFor="coachDescription" className="form-label">
+                  Coach Description:
                 </label>
                 <input
-                  value={coach.description}
-                  onChange={(event) => update_coach(event, "description")}
+                  id="coachDescription"
+                  value={coachForm.coachDescription}
+                  onChange={(event) =>
+                    handleUpdateCoach(event, "coachDescription")
+                  }
                   type="text"
                   className="form-control"
                 />
               </div>
 
               <div className="col-12 mb-4">
-                <label htmlFor="" className="form-label">
-                  Coach Profile:{" "}
+                <label htmlFor="coachProfileImage" className="form-label">
+                  Coach Profile:
                 </label>
                 <input
-                  value={coach.profile}
-                  onChange={(event) => update_coach(event, "profile")}
+                  id="coachProfileImage"
+                  onChange={(event) =>
+                    handleUpdateCoach(event, "coachProfileImage")
+                  }
                   type="file"
                   className="form-control"
                 />
+                {coachForm.coachProfileImage &&
+                  typeof coachForm.coachProfileImage === "string" && (
+                    <div className="mt-2">
+                      <strong>Current Profile:</strong>{" "}
+                      {coachForm.coachProfileImage.split("/").pop()}
+                    </div>
+                  )}
               </div>
             </div>
             <div className="row mb-2">
               <div className="col-12 text-end">
-                <button className="btn btn-blue" onClick={saveall_coach}>
+                <button className="btn btn-blue" onClick={handleSaveCoach}>
                   SAVE
                 </button>
               </div>
