@@ -28,6 +28,12 @@ export interface SeasonItem {
   sports: SportItem[];
 }
 
+export interface AwardItem {
+  id: number;
+  title: string;
+  description: string;
+}
+
 export interface SeasonSportItem {
   id: number | null;
   bannerTitle: string;
@@ -40,6 +46,7 @@ export interface SeasonSportItem {
   seasonNumber: string;
   seasonDetail: string;
   seasonImageUrl: string | null;
+  awards: AwardItem[];
 }
 
 export interface SeasonSportItemForm {

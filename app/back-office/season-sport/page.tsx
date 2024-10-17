@@ -10,6 +10,7 @@ import BannerCard from "./BannerCard";
 import CoachCard from "./CoachCard";
 import RecentGame from "./RecentGame";
 import SeasonCard from "./SeasonCard";
+import AwardsTable from "./AwardsTable";
 import { useAuth } from "../../context/AuthContext";
 import { SeasonSportItem, SeasonSportItemForm } from "../../types";
 
@@ -18,7 +19,6 @@ export default function SeasonSport() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sportId = searchParams.get("sportId");
-  // const seasonId = searchParams.get("seasonId");
   const seasonName = searchParams.get("seasonName");
   const [seasonSport, setSeasonSport] = useState<SeasonSportItem>({
     id: null,
@@ -32,6 +32,7 @@ export default function SeasonSport() {
     seasonNumber: "",
     seasonDetail: "",
     seasonImageUrl: null,
+    awards: [],
   });
   const [seasonSportForm, setSeasonSportForm] = useState<SeasonSportItemForm>({
     id: null,
@@ -265,6 +266,11 @@ export default function SeasonSport() {
           />
 
           {/* Awards */}
+          <AwardsTable
+            sportId={Number(sportId)}
+            awardsData={seasonSport.awards}
+            fetchSeasonSport={fetchSeasonSport}
+          />
         </div>
       </div>
     </div>
