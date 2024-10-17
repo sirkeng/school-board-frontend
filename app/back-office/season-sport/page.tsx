@@ -229,7 +229,14 @@ export default function SeasonSport() {
           />
 
           {/* Season Card */}
-          <SeasonCard />
+          <SeasonCard
+            seasonNumber={seasonSport.seasonNumber}
+            seasonDetail={seasonSport.seasonDetail}
+            seasonImageUrl={seasonSport.seasonImageUrl}
+            paramSeasonName={seasonName}
+            updateSeasonSport={updateSeasonSport}
+            saveSeasonCard={() => saveSeasonSport("season")}
+          />
 
           {/* Awards */}
         </div>

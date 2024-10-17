@@ -31,27 +31,27 @@ export interface SeasonItem {
 export interface SeasonSportItem {
   id: number | null;
   bannerTitle: string;
-  bannerImageUrl: File | string | null;
+  bannerImageUrl: string | null;
   coachName: string;
   coachDescription: string;
-  coachProfileImageUrl: File | string | null;
+  coachProfileImageUrl: string | null;
   recentGameTitle: string;
   recentGameDescription: string;
   seasonNumber: string;
   seasonDetail: string;
-  seasonImageUrl: File | string | null;
+  seasonImageUrl: string | null;
 }
 
 export interface SeasonSportItemForm {
   id: number | null;
   bannerTitle: string;
-  bannerImage: File | string | null;
+  bannerImage: File | null;
   coachName: string;
   coachDescription: string;
-  coachProfileImage: File | string | null;
+  coachProfileImage: File | null;
   recentGameTitle: string;
   recentGameDescription: string;
   seasonNumber: string;
   seasonDetail: string;
-  seasonImage: File | string | null;
+  seasonImage: File | null;
 }
