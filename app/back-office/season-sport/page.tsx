@@ -141,13 +141,22 @@ export default function SeasonSport() {
       const formData = new FormData();
 
       if (cardName === "banner") {
-        formData.append("bannerTitle", seasonSportForm.bannerTitle);
+        formData.append(
+          "bannerTitle",
+          seasonSportForm.bannerTitle || seasonSport.bannerTitle
+        );
         if (seasonSportForm.bannerImage instanceof File) {
           formData.append("bannerImage", seasonSportForm.bannerImage);
         }
       } else if (cardName === "coach") {
-        formData.append("coachName", seasonSportForm.coachName);
-        formData.append("coachDescription", seasonSportForm.coachDescription);
+        formData.append(
+          "coachName",
+          seasonSportForm.coachName || seasonSport.coachName
+        );
+        formData.append(
+          "coachDescription",
+          seasonSportForm.coachDescription || seasonSport.coachDescription
+        );
         if (seasonSportForm.coachProfileImage instanceof File) {
           formData.append(
             "coachProfileImage",
@@ -155,14 +164,24 @@ export default function SeasonSport() {
           );
         }
       } else if (cardName === "recentGame") {
-        formData.append("recentGameTitle", seasonSportForm.recentGameTitle);
+        formData.append(
+          "recentGameTitle",
+          seasonSportForm.recentGameTitle || seasonSport.recentGameTitle
+        );
         formData.append(
           "recentGameDescription",
-          seasonSportForm.recentGameDescription
+          seasonSportForm.recentGameDescription ||
+            seasonSport.recentGameDescription
         );
       } else if (cardName === "season") {
-        formData.append("seasonNumber", seasonSportForm.seasonNumber);
-        formData.append("seasonDetail", seasonSportForm.seasonDetail);
+        formData.append(
+          "seasonNumber",
+          seasonSportForm.seasonNumber || seasonSport.seasonNumber
+        );
+        formData.append(
+          "seasonDetail",
+          seasonSportForm.seasonDetail || seasonSport.seasonDetail
+        );
         if (seasonSportForm.seasonImage instanceof File) {
           formData.append("seasonImage", seasonSportForm.seasonImage);
         }
@@ -185,7 +204,7 @@ export default function SeasonSport() {
         alert(
           `${
             cardName.charAt(0).toUpperCase() + cardName.slice(1)
-          } Card updated successfully!`
+          } updated successfully!`
         );
         fetchSeasonSport();
       } else {
