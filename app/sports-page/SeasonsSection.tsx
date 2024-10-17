@@ -110,7 +110,7 @@ export default function SeasonsSection() {
               viewport={{ once: true }}
               transition={{ type: "Tween", stiffness: 100 }}
             >
-              <Link href="/season-sports">
+              <Link href={`/season-sports?id=${sport.id}`}>
                 <div className="picture-card">
                   <Image
                     height={500}
