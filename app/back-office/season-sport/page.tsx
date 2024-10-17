@@ -5,7 +5,7 @@ import "../../css/main-back-office.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import BannerCard from "./BannerCard";
 import CoachCard from "./CoachCard";
 import RecentGame from "./RecentGame";
@@ -16,8 +16,9 @@ import { SeasonSportItem, SeasonSportItemForm } from "../../types";
 export default function SeasonSport() {
   const { handleAuthError } = useAuth();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const sportId = searchParams.get("sportId");
-  const seasonId = searchParams.get("seasonId");
+  // const seasonId = searchParams.get("seasonId");
   const seasonName = searchParams.get("seasonName");
   const [seasonSport, setSeasonSport] = useState<SeasonSportItem>({
     id: null,
@@ -221,6 +222,12 @@ export default function SeasonSport() {
       <div className="row">
         <div className="offset-2 col-8">
           <h2 className="my-4">Edit Season-Sport Page</h2>
+          <button
+            className="btn btn-secondary mb-4"
+            onClick={() => router.back()}
+          >
+            Back
+          </button>
 
           {/* Banner Card */}
           <BannerCard
