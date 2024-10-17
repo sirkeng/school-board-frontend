@@ -18,12 +18,11 @@ export default function SeasonCard({
   seasonNumber,
   seasonDetail,
   seasonImageUrl,
-  paramSeasonName,
   updateSeasonSport,
   saveSeasonCard,
 }: SeasonCardProps) {
   const [seasonForm, setSeasonForm] = useState({
-    seasonNumber: seasonNumber || paramSeasonName,
+    seasonNumber: seasonNumber || "",
     seasonDetail: seasonDetail || "",
     seasonImage: seasonImageUrl || "",
   });

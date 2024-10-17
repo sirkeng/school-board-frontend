@@ -1,12 +1,29 @@
-.background-picture-ss{
-    background-image: url('/images/Vollcover.webp');
-    background-size: cover;
-    background-position: center;
-    height: 70vh;
-    background-color: #00000040;
-    background-blend-mode: overlay;
+body {
+  background-color: #f4f4f4;
 }
 
-body{
-    background-color: #f4f4f4;
+.background-picture-ss {
+  background-size: cover;
+  background-position: center;
+  height: 70vh;
+  background-color: #00000040;
+  background-blend-mode: overlay;
+}
+
+.back-icon {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.back-arrow {
+  width: 90px; /* Adjust as needed */
+  height: auto;
+  opacity: 0.8; /* Optional, for visual styling */
+  transition: opacity 0.3s ease;
+}
+
+.back-arrow:hover {
+  opacity: 1;
 }
