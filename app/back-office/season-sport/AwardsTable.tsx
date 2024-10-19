@@ -168,7 +168,7 @@ export default function AwardsTable({
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="3" className="text-center">
+                        <td colSpan={3} className="text-center">
                           No awards available.
                         </td>
                       </tr>
