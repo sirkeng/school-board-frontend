@@ -15,6 +15,7 @@ import BannerSection from "./BannerSection";
 import NewsSection from "./NewsSection";
 import ScoreboardSection from "./ScoreboardSection";
 import SeasonsSection from "./SeasonsSection";
+import LastSeasonsSection from "./LastSeasonsSection";
 
 export default function SportsPage() {
   return (
@@ -36,6 +37,9 @@ export default function SportsPage() {
 
               {/* seasons */}
               <SeasonsSection />
+
+              {/* add new section for 3 last-seasons*/}
+              <LastSeasonsSection />
             </div>
           </div>
         </section>
