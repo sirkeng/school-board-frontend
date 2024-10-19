@@ -140,31 +140,39 @@ export default function AwardsTable({
                     </tr>
                   </thead>
                   <tbody>
-                    {awardsList.map((data) => (
-                      <tr key={data.id}>
-                        <td>
-                          <i
-                            className="bi bi-pencil text-success me-2 cursor-pointer"
-                            title="Edit"
-                            onClick={() => handleEdit(data)}
-                          ></i>
-                          <i
-                            onClick={() => {
-                              const confirmDelete = window.confirm(
-                                `Are you sure you want to delete the award titled "${data.title}"?`
-                              );
-                              if (confirmDelete) {
-                                deleteAward(data.id);
-                              }
-                            }}
-                            className="bi bi-trash3 text-danger cursor-pointer"
-                            title="Delete"
-                          ></i>
+                    {Array.isArray(awardsList) && awardsList.length > 0 ? (
+                      awardsList.map((data) => (
+                        <tr key={data.id}>
+                          <td>
+                            <i
+                              className="bi bi-pencil text-success me-2 cursor-pointer"
+                              title="Edit"
+                              onClick={() => handleEdit(data)}
+                            ></i>
+                            <i
+                              onClick={() => {
+                                const confirmDelete = window.confirm(
+                                  `Are you sure you want to delete the award titled "${data.title}"?`
+                                );
+                                if (confirmDelete) {
+                                  deleteAward(data.id);
+                                }
+                              }}
+                              className="bi bi-trash3 text-danger cursor-pointer"
+                              title="Delete"
+                            ></i>
+                          </td>
+                          <td>{data.title}</td>
+                          <td>{data.description}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="3" className="text-center">
+                          No awards available.
                         </td>
-                        <td>{data.title}</td>
-                        <td>{data.description}</td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </table>
               </div>
