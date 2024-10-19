@@ -121,8 +121,7 @@ export default function SeasonsTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       fetchSeasons();
@@ -239,8 +238,7 @@ export default function SeasonsTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       fetchSeasons();

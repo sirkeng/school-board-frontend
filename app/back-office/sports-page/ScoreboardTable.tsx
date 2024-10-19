@@ -65,8 +65,7 @@ export default function ScoreboardTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       const data = await response.json();
@@ -149,8 +148,7 @@ export default function ScoreboardTable() {
         }
       );
       if (!response.ok) {
-        const errorData = await response.json();
-        alert(errorData.message);
+        await handleAuthError(response);
         return;
       }
       fetchScoreboards();
