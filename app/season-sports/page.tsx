@@ -33,6 +33,10 @@ export default function SeasonSports() {
     }
   }, [sportId]);
 
+  useEffect(() => {
+    document.title = seasonSport?.bannerTitle;
+  }, [seasonSport?.bannerTitle]);
+
   const getAccessToken = () => {
     return localStorage.getItem("accessToken");
   };

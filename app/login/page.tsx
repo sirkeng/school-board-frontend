@@ -55,7 +55,7 @@ export default function LoginPage() {
         localStorage.setItem("accessToken", data?.accessToken);
         localStorage.setItem("refreshToken", data?.refreshToken);
         sessionStorage.removeItem("hasRefreshed");
-        
+
         // Redirect to back-office
         router.push("/back-office/dashboard");
       } else {
@@ -121,11 +121,6 @@ export default function LoginPage() {
 
           <h3>High School Portal</h3>
         </div>
-        <button
-          type="button"
-          className="btn-close form-close"
-          aria-label="Close"
-        ></button>
       </div>
     </main>
   );

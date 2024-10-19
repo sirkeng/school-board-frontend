@@ -9,6 +9,10 @@ export default function BannerSection() {
     fetchBanner();
   }, []);
 
+  useEffect(() => {
+    document.title = banner?.title;
+  }, [banner]);
+
   const fetchBanner = async () => {
     try {
       const response = await fetch(
