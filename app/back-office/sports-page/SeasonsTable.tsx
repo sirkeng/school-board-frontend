@@ -350,7 +350,7 @@ export default function SeasonsTable() {
                                 <i
                                   onClick={() => {
                                     const confirmDelete = window.confirm(
-                                      `Are you sure you want to delete the sport "${sp.sportName}"?`
+                                      `Are you sure you want to delete the sport "${sp.sportName}"? This action will also delete related DetailSport and Award entries.`
                                     );
                                     if (confirmDelete) {
                                       deleteSport(sp.id);
