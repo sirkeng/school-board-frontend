@@ -29,7 +29,7 @@ export default function SportsPage() {
         {/* news */}
         <NewsSection />
 
-        <section className="bg-dark-blue">
+        <section className="bg-dark-blue pb-5">
           <div className="container">
             <div className="row">
               {/* scoreboard*/}
