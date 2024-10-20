@@ -37,13 +37,12 @@ export default function SportsPage() {
 
               {/* seasons */}
               <SeasonsSection />
-
-              {/* add new section for 3 last-seasons*/}
-              <LastSeasonsSection />
             </div>
           </div>
         </section>
       </main>
+      {/* add new section for 3 last-seasons*/}
+      <LastSeasonsSection />
     </>
   );
 }

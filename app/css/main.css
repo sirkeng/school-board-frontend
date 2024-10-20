@@ -60,6 +60,11 @@ a {
   color: #1d3758;
 }
 
+.bg-white {
+  background-color: #ffffff;
+  color: #1d3758;
+}
+
 .bg-blue {
   background-color: #335176de;
 }
@@ -226,4 +231,9 @@ a {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.card-img-top-radius-unset {
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
 }

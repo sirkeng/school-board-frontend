@@ -40,56 +40,68 @@ export default function LastSeasonsSection() {
   };
 
   return (
-    <section className="container mb-5">
-      <div className="row">
-        {lastSeasons.map((season, index) => (
-          <motion.div
-            key={index}
-            className="col-12 col-md-4 mb-4"
-            initial={{ opacity: 0, y: "50px" }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ type: "Tween", stiffness: 100 }}
-          >
-            <div className="card">
-              <div className="card-header fs-4 text-center text-primary">
-                {season.seasonNumber}
-              </div>
-              <Image
-                height={300}
-                width={500}
-                src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${season.seasonImageUrl}`}
-                alt="Season Image"
-                className="card-img-top"
-                style={{ objectFit: "cover", height: "300px" }}
-              />
-              <div className="card-body">
-                <p className="card-text text-black text-roboto">
-                  {expandedSeasons[index] || season.seasonDetail.length <= 100
-                    ? season.seasonDetail
-                    : `${season.seasonDetail.substring(0, 100)}...`}
-                  {season.seasonDetail.length > 100 &&
-                    !expandedSeasons[index] && (
-                      <button
-                        className="btn btn-link p-0 text-primary ms-1"
-                        onClick={() => toggleSeeMore(index)}
-                      >
-                        See More
-                      </button>
-                    )}
-                </p>
-                {expandedSeasons[index] && season.seasonDetail.length > 100 && (
-                  <button
-                    className="btn btn-link p-0 text-primary"
-                    onClick={() => toggleSeeMore(index)}
-                  >
-                    See Less
-                  </button>
-                )}
+    <section className="bg-white mx-2">
+      <div className="container">
+        <div className="row py-3 d-flex justify-content-center">
+          <div className="my-2">
+            <h4 className="blue-text text-center fs-1">RECENT POSTS</h4>
+          </div>
+          {lastSeasons.map((season, index) => (
+            <div key={index} className="col-12 col-md-4 mb-4">
+              <div
+                className="card bg-grey shadow"
+                style={{ border: "none", width: "100%", maxWidth: "380px" }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: "50px" }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "Tween", stiffness: 100 }}
+                >
+                  <div className="card">
+                    <div className="card-header fs-4 text-center blue-text">
+                      {season.seasonNumber}
+                    </div>
+                    <Image
+                      height={300}
+                      width={500}
+                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${season.seasonImageUrl}`}
+                      alt="Season Image"
+                      className="card-img-top card-img-top-radius-unset"
+                      style={{ objectFit: "cover", height: "300px" }}
+                    />
+                    <div className="card-body">
+                      <p className="card-text text-black text-roboto">
+                        {expandedSeasons[index] ||
+                        season.seasonDetail.length <= 100
+                          ? season.seasonDetail
+                          : `${season.seasonDetail.substring(0, 100)}...`}
+                        {season.seasonDetail.length > 100 &&
+                          !expandedSeasons[index] && (
+                            <button
+                              className="btn btn-link p-0 blue-text ms-1"
+                              onClick={() => toggleSeeMore(index)}
+                            >
+                              See More
+                            </button>
+                          )}
+                      </p>
+                      {expandedSeasons[index] &&
+                        season.seasonDetail.length > 100 && (
+                          <button
+                            className="btn btn-link p-0 blue-text"
+                            onClick={() => toggleSeeMore(index)}
+                          >
+                            See Less
+                          </button>
+                        )}
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
