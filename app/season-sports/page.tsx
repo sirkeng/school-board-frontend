@@ -1,14 +1,24 @@
 "use client";
 
+import { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
 import "../css/main.css";
 import "../css/season-sports.css";
+
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { SeasonSportItem } from "../types";
 
 export default function SeasonSports() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SeasonSportsContent />
+    </Suspense>
+  );
+}
+
+function SeasonSportsContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sportId = searchParams.get("id");
@@ -34,7 +44,9 @@ export default function SeasonSports() {
   }, [sportId]);
 
   useEffect(() => {
-    document.title = seasonSport?.bannerTitle;
+    if (typeof window !== "undefined") {
+      document.title = seasonSport?.bannerTitle;
+    }
   }, [seasonSport?.bannerTitle]);
 
   const getAccessToken = () => {

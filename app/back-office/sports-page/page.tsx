@@ -1,6 +1,10 @@
 "use client";
 
-import "bootstrap/dist/js/bootstrap.bundle.js";
+import dynamic from "next/dynamic";
+
+dynamic(() => import("bootstrap/dist/js/bootstrap.bundle.js"), {
+  ssr: false,
+});
 import "../../css/main-back-office.css";
 import "../../css/main.css";
 

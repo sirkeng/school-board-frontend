@@ -1,5 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -8,7 +10,9 @@ import "../css/main.css";
 import "../css/sportspage.css";
 import "../css/custom-swiper.css";
 import "../css/custom-dropdown.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+dynamic(() => import("bootstrap/dist/js/bootstrap.bundle.min.js"), {
+  ssr: false,
+});
 
 import HeaderSecion from "./HeaderSecion";
 import BannerSection from "./BannerSection";

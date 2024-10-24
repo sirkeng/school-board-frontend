@@ -1,11 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+
 import "../../css/main.css";
 import "../../css/main-back-office.css";
-import "bootstrap/dist/js/bootstrap.bundle.js";
+dynamic(() => import("bootstrap/dist/js/bootstrap.bundle.js"), {
+  ssr: false,
+});
 
-import { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import BannerCard from "./BannerCard";
 import CoachCard from "./CoachCard";
 import RecentGame from "./RecentGame";
@@ -16,6 +20,16 @@ import { SeasonSportItem, SeasonSportItemForm } from "../../types";
 
 export default function SeasonSport() {
   const { handleAuthError } = useAuth();
+
+  // Wrapping `useSearchParams` inside a Suspense boundary
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SeasonSportContent handleAuthError={handleAuthError} />
+    </Suspense>
+  );
+}
+
+function SeasonSportContent({ handleAuthError }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const sportId = searchParams.get("sportId");
