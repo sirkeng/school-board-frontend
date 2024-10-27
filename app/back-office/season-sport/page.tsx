@@ -21,6 +21,12 @@ import { SeasonSportItem, SeasonSportItemForm } from "../../types";
 export default function SeasonSport() {
   const { handleAuthError } = useAuth();
 
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.js").then((bootstrap) => {
+      // Bootstrap is loaded; ensure components are correctly initialized here if necessary
+    });
+  }, []);
+
   // Wrapping `useSearchParams` inside a Suspense boundary
   return (
     <Suspense fallback={<div>Loading...</div>}>

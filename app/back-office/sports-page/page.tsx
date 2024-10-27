@@ -8,7 +8,7 @@ dynamic(() => import("bootstrap/dist/js/bootstrap.bundle.js"), {
 import "../../css/main-back-office.css";
 import "../../css/main.css";
 
-import React from "react";
+import React, { useEffect } from "react";
 import withAuth from "../../components/withAuth";
 import NewsTable from "./NewsTable";
 import ScoreboardTable from "./ScoreboardTable";
@@ -16,6 +16,12 @@ import SeasonTable from "./SeasonsTable";
 import BannerCard from "./BannerCard";
 
 function SportsPage() {
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.js").then((bootstrap) => {
+      // Bootstrap is loaded; ensure components are correctly initialized here if necessary
+    });
+  }, []);
+
   return (
     <>
       <div className="container">

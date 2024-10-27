@@ -20,8 +20,14 @@ import NewsSection from "./NewsSection";
 import ScoreboardSection from "./ScoreboardSection";
 import SeasonsSection from "./SeasonsSection";
 import LastSeasonsSection from "./LastSeasonsSection";
+import { useEffect } from "react";
 
 export default function SportsPage() {
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.min.js").then((bootstrap) => {
+      // Bootstrap is loaded; ensure components are correctly initialized here if necessary
+    });
+  }, []);
   return (
     <>
       <HeaderSecion />
