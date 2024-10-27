@@ -6,7 +6,7 @@ export default function HeaderPage() {
   return (
     <header>
       <nav className="navbar navbar-expand-lg position-absolute top-0 start-0 end-0">
-        {/* <div className="container-fluid">
+        <div className="container-fluid">
           <a className="navbar-brand" href="#">
             <Image
               height={500}
@@ -27,7 +27,7 @@ export default function HeaderPage() {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item fs-3 mx-lg-5 mx-4 text-end">
                 <a className="nav-link text-white" href="#">
@@ -62,8 +62,8 @@ export default function HeaderPage() {
                             alt=""
                             style={{height: '45px', width: 'auto'}}
                         />
-          </div> 
-        </div>*/}
+          </div> */}
+        </div>
       </nav>
     </header>
   );
