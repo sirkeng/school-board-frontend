@@ -6,7 +6,7 @@ export default function HeaderPage() {
   return (
     <header>
       <nav className="navbar navbar-expand-lg position-absolute top-0 start-0 end-0">
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <a className="navbar-brand" href="#">
             <Image
               height={500}
@@ -55,15 +55,15 @@ export default function HeaderPage() {
                 </a>
               </li>
             </ul>
-            {/*<Image 
+            <Image 
                             height={500}
                             width={500}
                             src="/images/icon.png"
                             alt=""
                             style={{height: '45px', width: 'auto'}}
-                        />*/}
-          </div>
-        </div>
+                        />
+          </div> 
+        </div>*/}
       </nav>
     </header>
   );
