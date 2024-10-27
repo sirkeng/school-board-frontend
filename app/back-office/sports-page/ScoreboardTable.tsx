@@ -215,11 +215,11 @@ export default function ScoreboardTable() {
                         <td>
                           <Link
                             href={data.liveLink}
-                            className="text-grey"
+                            className="text-primary"
                             target="_blank"
                           >
                             <u>Link to Live</u>
-                            <i className="bi bi-box-arrow-up-right text-grey ms-1"></i>
+                            <i className="bi bi-box-arrow-up-right text-primary ms-1"></i>
                           </Link>
                         </td>
                       </tr>

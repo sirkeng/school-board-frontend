@@ -7,7 +7,7 @@ export default function HeaderPage() {
     <header>
       <nav className="navbar navbar-expand-lg position-absolute top-0 start-0 end-0">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="https://www.rism.ac.th/">
             <Image
               height={500}
               width={500}

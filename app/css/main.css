@@ -237,3 +237,11 @@ a {
   border-top-left-radius: unset;
   border-top-right-radius: unset;
 }
+
+label {
+  color: black;
+}
+
+.modal-title {
+  color: black;
+}
