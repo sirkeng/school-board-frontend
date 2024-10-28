@@ -35,6 +35,7 @@ function SeasonSportsContent() {
     seasonDetail: "",
     seasonImageUrl: "",
     awards: [],
+    recentGames: [],
   });
 
   useEffect(() => {
