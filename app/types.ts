@@ -34,6 +34,14 @@ export interface AwardItem {
   description: string;
 }
 
+export interface RecentGameItem {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  timestamp: string;
+}
+
 export interface SeasonSportItem {
   id: number | null;
   bannerTitle: string;
@@ -47,6 +55,7 @@ export interface SeasonSportItem {
   seasonDetail: string;
   seasonImageUrl: string | null;
   awards: AwardItem[];
+  recentGames: RecentGameItem[];
 }
 
 export interface SeasonSportItemForm {

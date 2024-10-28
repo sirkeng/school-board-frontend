@@ -12,7 +12,7 @@ dynamic(() => import("bootstrap/dist/js/bootstrap.bundle.js"), {
 
 import BannerCard from "./BannerCard";
 import CoachCard from "./CoachCard";
-import RecentGame from "./RecentGame";
+import RecentGameTable from "./RecentGameTable";
 import SeasonCard from "./SeasonCard";
 import AwardsTable from "./AwardsTable";
 import { useAuth } from "../../context/AuthContext";
@@ -53,6 +53,7 @@ function SeasonSportContent({ handleAuthError }) {
     seasonDetail: "",
     seasonImageUrl: null,
     awards: [],
+    recentGames: [],
   });
   const [seasonSportForm, setSeasonSportForm] = useState<SeasonSportItemForm>({
     id: null,
@@ -268,13 +269,11 @@ function SeasonSportContent({ handleAuthError }) {
           />
 
           {/* Recent Game */}
-          <RecentGame
-            recentGameTitle={seasonSport.recentGameTitle}
-            recentGameDescription={seasonSport.recentGameDescription}
-            updateSeasonSport={updateSeasonSport}
-            saveRecentGameCard={() => saveSeasonSport("recentGame")}
+          <RecentGameTable
+            sportId={Number(sportId)}
+            recentGameData={seasonSport.recentGames}
+            fetchSeasonSport={fetchSeasonSport}
           />
-
           {/* Season Card */}
           <SeasonCard
             seasonNumber={seasonSport.seasonNumber}
