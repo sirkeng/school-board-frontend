@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function LastSeasonsSection() {
   const [lastSeasons, setLastSeasons] = useState([]);
@@ -15,7 +16,7 @@ export default function LastSeasonsSection() {
   const fetchLastSeasons = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/detail-sport/last-seasons`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/detail-sport/last-seasons?limit=3`,
         {
           method: "GET",
         }
@@ -59,17 +60,20 @@ export default function LastSeasonsSection() {
                   transition={{ type: "Tween", stiffness: 100 }}
                 >
                   <div className="card">
-                    <div className="card-header fs-4 text-center blue-text">
-                      {season.seasonNumber}
-                    </div>
-                    <Image
-                      height={300}
-                      width={500}
-                      src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${season.seasonImageUrl}`}
-                      alt="Season Image"
-                      className="card-img-top card-img-top-radius-unset"
-                      style={{ objectFit: "cover", height: "300px" }}
-                    />
+                    <Link href={`/season-sports?id=${season?.sport?.id}`}>
+                      <div className="card-header fs-4 text-center blue-text">
+                        {season.seasonNumber}
+                      </div>
+
+                      <Image
+                        height={300}
+                        width={500}
+                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${season.seasonImageUrl}`}
+                        alt="Season Image"
+                        className="card-img-top card-img-top-radius-unset"
+                        style={{ objectFit: "cover", height: "300px" }}
+                      />
+                    </Link>
                     <div className="card-body">
                       <p className="card-text text-black text-roboto">
                         {expandedSeasons[index] ||
