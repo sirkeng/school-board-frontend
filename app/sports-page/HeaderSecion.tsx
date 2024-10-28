@@ -12,11 +12,12 @@ export default function HeaderPage() {
               height={500}
               width={500}
               src="/images/RIS-logo.png"
-              alt=""
-              style={{ height: "55px", width: "100%" }}
+              alt="RIS Logo"
+              className="img-fluid"
+              style={{ maxHeight: "55px", width: "auto" }}
             />
           </a>
-          <button
+          {/* <button
             className="navbar-toggler border-0"
             type="button"
             data-bs-toggle="collapse"
@@ -26,7 +27,7 @@ export default function HeaderPage() {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon" />
-          </button>
+          </button> */}
           {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item fs-3 mx-lg-5 mx-4 text-end">
