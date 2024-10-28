@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import { Navigation } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
 import { format } from "date-fns";
 import { NewsItem } from "../types";
 
@@ -46,7 +45,7 @@ export default function NewsSection() {
                 dynamicBullets: true,
               }}
               modules={[Pagination, Navigation]}
-              className="mySwiper"
+              className="mySwiperNews"
             >
               {newsList.map((data: NewsItem) => {
                 return (

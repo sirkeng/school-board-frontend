@@ -3,12 +3,19 @@
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "../css/custom-swiper.css";
+import "../css/custom-dropdown.css";
 import "../css/main.css";
 import "../css/season-sports.css";
 
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { SeasonSportItem } from "../types";
+import RecentGameSection from "./RecentGameSection";
 
 export default function SeasonSports() {
   return (
@@ -141,51 +148,7 @@ function SeasonSportsContent() {
       </section>
 
       {/* Recent Games */}
-      <section>
-        <div className="container">
-          <div className="row">
-            <motion.div
-              className="col-12 blue-text"
-              initial={{ opacity: 0, y: "100px" }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "Tween", stiffness: 100 }}
-            >
-              <h2>Recent Games</h2>
-            </motion.div>
-          </div>
-          <div className="row mb-5">
-            <div className="col-12">
-              <motion.div
-                className="card p-2 bg-sblue"
-                initial={{ opacity: 0, y: "100px" }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "Tween", stiffness: 100 }}
-              >
-                <motion.div
-                  className="card-body pb-5"
-                  initial={{ opacity: 0, y: "100px" }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "Tween", stiffness: 100 }}
-                >
-                  <div className="row">
-                    <div className="col-12 fs-3 text-white fw-bold">
-                      {seasonSport.recentGameTitle}
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12 fs-6 yellow-text text-margin">
-                      {seasonSport.recentGameDescription}
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <RecentGameSection recentGames={seasonSport.recentGames} />
 
       {/* Season Detail */}
       <section>

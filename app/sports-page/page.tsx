@@ -7,9 +7,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "../css/main.css";
-import "../css/sportspage.css";
 import "../css/custom-swiper.css";
 import "../css/custom-dropdown.css";
+import "../css/sportspage.css";
 dynamic(() => import("bootstrap/dist/js/bootstrap.bundle.min.js"), {
   ssr: false,
 });
