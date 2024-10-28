@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
 
 export default function LastSeasonsSection() {
   const [lastSeasons, setLastSeasons] = useState([]);
@@ -16,7 +18,7 @@ export default function LastSeasonsSection() {
   const fetchLastSeasons = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/detail-sport/last-seasons?limit=3`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/detail-sport/last-seasons?limit=6`,
         {
           method: "GET",
         }
@@ -40,6 +42,10 @@ export default function LastSeasonsSection() {
     }));
   };
 
+  if (lastSeasons.length === 0) {
+    return null;
+  }
+
   return (
     <section className="bg-white mx-2">
       <div className="container">
@@ -47,64 +53,76 @@ export default function LastSeasonsSection() {
           <div className="my-2">
             <h4 className="blue-text text-center fs-1">RECENT POSTS</h4>
           </div>
-          {lastSeasons.map((season, index) => (
-            <div key={index} className="col-12 col-md-4 mb-4">
-              <div
-                className="card bg-grey shadow"
-                style={{ border: "none", width: "100%", maxWidth: "380px" }}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: "50px" }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "Tween", stiffness: 100 }}
-                >
-                  <div className="card">
-                    <Link href={`/season-sports?id=${season?.sport?.id}`}>
-                      <div className="card-header fs-4 text-center blue-text">
-                        {season.seasonNumber}
+          <Swiper
+            navigation={true}
+            pagination={{
+              dynamicBullets: true,
+            }}
+            slidesPerView={3}
+            spaceBetween={30}
+            modules={[Pagination, Navigation]}
+            className="mySwiperLastSeasons"
+          >
+            {lastSeasons.map((season, index) => (
+              <SwiperSlide key={index}>
+                <div className="col-12 mb-4">
+                  <div
+                    className="card bg-grey shadow"
+                    style={{ border: "none", width: "100%", maxWidth: "380px" }}
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, y: "50px" }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "Tween", stiffness: 100 }}
+                    >
+                      <div className="card">
+                        <Link href={`/season-sports?id=${season?.sport?.id}`}>
+                          <div className="card-header fs-4 text-center blue-text">
+                            {season.seasonNumber}
+                          </div>
+                          <Image
+                            height={300}
+                            width={500}
+                            src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${season.seasonImageUrl}`}
+                            alt="Season Image"
+                            className="card-img-top card-img-top-radius-unset"
+                            style={{ objectFit: "cover", height: "300px" }}
+                          />
+                        </Link>
+                        <div className="card-body">
+                          <p className="card-text text-black text-roboto">
+                            {expandedSeasons[index] ||
+                            season.seasonDetail.length <= 100
+                              ? season.seasonDetail
+                              : `${season.seasonDetail.substring(0, 100)}...`}
+                            {season.seasonDetail.length > 100 &&
+                              !expandedSeasons[index] && (
+                                <button
+                                  className="btn btn-link p-0 blue-text ms-1"
+                                  onClick={() => toggleSeeMore(index)}
+                                >
+                                  See More
+                                </button>
+                              )}
+                          </p>
+                          {expandedSeasons[index] &&
+                            season.seasonDetail.length > 100 && (
+                              <button
+                                className="btn btn-link p-0 blue-text"
+                                onClick={() => toggleSeeMore(index)}
+                              >
+                                See Less
+                              </button>
+                            )}
+                        </div>
                       </div>
-
-                      <Image
-                        height={300}
-                        width={500}
-                        src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${season.seasonImageUrl}`}
-                        alt="Season Image"
-                        className="card-img-top card-img-top-radius-unset"
-                        style={{ objectFit: "cover", height: "300px" }}
-                      />
-                    </Link>
-                    <div className="card-body">
-                      <p className="card-text text-black text-roboto">
-                        {expandedSeasons[index] ||
-                        season.seasonDetail.length <= 100
-                          ? season.seasonDetail
-                          : `${season.seasonDetail.substring(0, 100)}...`}
-                        {season.seasonDetail.length > 100 &&
-                          !expandedSeasons[index] && (
-                            <button
-                              className="btn btn-link p-0 blue-text ms-1"
-                              onClick={() => toggleSeeMore(index)}
-                            >
-                              See More
-                            </button>
-                          )}
-                      </p>
-                      {expandedSeasons[index] &&
-                        season.seasonDetail.length > 100 && (
-                          <button
-                            className="btn btn-link p-0 blue-text"
-                            onClick={() => toggleSeeMore(index)}
-                          >
-                            See Less
-                          </button>
-                        )}
-                    </div>
+                    </motion.div>
                   </div>
-                </motion.div>
-              </div>
-            </div>
-          ))}
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </section>
