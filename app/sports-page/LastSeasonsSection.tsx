@@ -77,7 +77,7 @@ export default function LastSeasonsSection() {
                       style={{
                         border: "none",
                         width: "100%",
-                        maxWidth: "380px",
+                        maxWidth: "360px",
                       }}
                     >
                       <motion.div

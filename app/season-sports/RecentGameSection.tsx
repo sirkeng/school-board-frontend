@@ -35,7 +35,10 @@ export default function RecentGameSection({
         <div className="row">
           <div className="col-12">
             <Swiper
-              navigation={true}
+              navigation={{
+                prevEl: ".swiper-button-prev",
+                nextEl: ".swiper-button-next",
+              }}
               pagination={{
                 dynamicBullets: true,
               }}
@@ -68,6 +71,14 @@ export default function RecentGameSection({
                   </SwiperSlide>
                 );
               })}
+              <div
+                className="swiper-button-prev"
+                style={{ paddingBottom: "20px" }}
+              ></div>
+              <div
+                className="swiper-button-next"
+                style={{ paddingBottom: "20px" }}
+              ></div>
             </Swiper>
           </div>
         </div>
