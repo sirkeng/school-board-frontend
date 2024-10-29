@@ -57,7 +57,10 @@ export default function LastSeasonsSection() {
           </div>
           {width > 768 ? (
             <Swiper
-              navigation={true}
+              navigation={{
+                prevEl: ".swiper-button-prev",
+                nextEl: ".swiper-button-next",
+              }}
               pagination={{
                 dynamicBullets: true,
               }}
@@ -68,7 +71,7 @@ export default function LastSeasonsSection() {
             >
               {lastSeasons.map((season, index) => (
                 <SwiperSlide key={index}>
-                  <div className="col-12 mb-4">
+                  <div className="d-flex justify-content-center">
                     <div
                       className="card bg-grey shadow"
                       style={{
@@ -129,6 +132,14 @@ export default function LastSeasonsSection() {
                   </div>
                 </SwiperSlide>
               ))}
+              <div
+                className="swiper-button-prev"
+                style={{ left: "-5px" }}
+              ></div>
+              <div
+                className="swiper-button-next"
+                style={{ right: "-5px" }}
+              ></div>
             </Swiper>
           ) : (
             <div className="row">
