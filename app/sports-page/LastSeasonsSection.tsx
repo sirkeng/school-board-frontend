@@ -140,6 +140,10 @@ export default function LastSeasonsSection() {
                 className="swiper-button-next"
                 style={{ right: "-5px" }}
               ></div>
+              <div
+                className="swiper-pagination"
+                style={{ bottom: "-30px" }}
+              ></div>
             </Swiper>
           ) : (
             <div className="row">

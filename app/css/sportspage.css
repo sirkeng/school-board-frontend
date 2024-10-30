@@ -1,26 +1,29 @@
-.background-picture-sp{
-    /*background-image: url('/images/cover.jpg');
+.background-picture-sp {
+  /*background-image: url('/images/cover.jpg');
     background-size: cover;
     background-position: center;*/
-    height: 70vh;
-    background-color: #00000040;
-    background-blend-mode: overlay;
+  height: 70vh;
+  background-color: #00000040;
+  background-blend-mode: overlay;
 }
 
-.picture-width{
-    height: 200px;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 5px;
-} 
+.picture-width {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+}
 .picture-card {
-    border-radius: 0.375rem;
+  border-radius: 0.375rem;
 }
 .picture-hover {
-    transition: all .3s;
+  transition: all 0.3s;
 }
 .picture-hover:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
+}
 
+.mySwiperLastSeasons {
+  padding-bottom: 30px;
 }
